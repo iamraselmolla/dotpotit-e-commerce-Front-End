@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     return (
@@ -44,7 +45,7 @@ const Login = () => {
                                 className="w-full px-3 py-2 border rounded text-gray-700 focus:outline-none focus:shadow-outline"
                             />
                             <div className="flex items-center justify-between mt-2">
-                                <a href="#" className="text-sm text-blue-500 hover:text-blue-700">
+                                <a href="/forget-password" className="text-sm text-blue-500 hover:text-blue-700">
                                     Forgot Password?
                                 </a>
                             </div>
@@ -60,11 +61,11 @@ const Login = () => {
                     </form>
                     <div className="text-center mt-4">
                         <span>NEW USER? </span>
-                        <a href="#" className="text-blue-500 hover:text-blue-700">SIGN UP</a>
+                        <Link to="/register" className="text-blue-500 hover:text-blue-700" >SIGN UP</Link>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

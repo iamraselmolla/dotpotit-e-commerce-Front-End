@@ -1,5 +1,6 @@
 import React from 'react';
-import { Eye, EyeOff } from 'lucide-react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
     const [showPassword, setShowPassword] = React.useState(false);
@@ -53,7 +54,7 @@ const Register = () => {
                                     className="absolute inset-y-0 right-0 pr-3 flex items-center"
                                     onClick={() => setShowPassword(!showPassword)}
                                 >
-                                    {showPassword ? <EyeOff className="h-5 w-5 text-gray-400" /> : <Eye className="h-5 w-5 text-gray-400" />}
+                                    {showPassword ? <FaEyeSlash className="h-5 w-5 text-gray-400" /> : <FaEye className="h-5 w-5 text-gray-400" />}
                                 </button>
                             </div>
                         </div>
@@ -73,7 +74,7 @@ const Register = () => {
                                     className="absolute inset-y-0 right-0 pr-3 flex items-center"
                                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                 >
-                                    {showConfirmPassword ? <EyeOff className="h-5 w-5 text-gray-400" /> : <Eye className="h-5 w-5 text-gray-400" />}
+                                    {showConfirmPassword ? <FaEye className="h-5 w-5 text-gray-400" /> : <FaEyeSlash className="h-5 w-5 text-gray-400" />}
                                 </button>
                             </div>
                         </div>
@@ -85,7 +86,7 @@ const Register = () => {
                         </button>
                     </form>
                     <p className="mt-4 text-center text-sm text-gray-600">
-                        ALREADY USER? <a href="#" className="text-green-500 hover:underline">LOGIN</a>
+                        ALREADY USER? <Link to="/login" className="text-green-500 hover:underline">LOGIN</Link>
                     </p>
                 </div>
             </div>
