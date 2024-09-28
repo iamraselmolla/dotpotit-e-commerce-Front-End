@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 const Login = () => {
     return (
         <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-            <div className="container mx-auto max-w-5xl bg-white shadow-md rounded-lg overflow-hidden flex">
+            <div className="container mx-auto max-w-5xl bg-white shadow-md rounded-lg overflow-hidden flex flex-col md:flex-row">
                 {/* Left Section with Image */}
-                <div className="hidden md:block md:w-1/2">
+                <div className="flex justify-center items-center bg-gray-200 md:w-1/2 p-8">
                     <img
                         src="images/login.png"
                         alt="Login"
-                        className=""
+                        className="w-2/3 h-auto object-cover"
                     />
                 </div>
 
@@ -45,9 +45,9 @@ const Login = () => {
                                 className="w-full px-3 py-2 border rounded text-gray-700 focus:outline-none focus:shadow-outline"
                             />
                             <div className="flex items-center justify-between mt-2">
-                                <a href="/forget-password" className="text-sm text-blue-500 hover:text-blue-700">
+                                <Link to="/forget-password" className="text-sm text-blue-500 hover:text-blue-700">
                                     Forgot Password?
-                                </a>
+                                </Link>
                             </div>
                         </div>
                         <div className="flex items-center justify-between">
@@ -61,11 +61,11 @@ const Login = () => {
                     </form>
                     <div className="text-center mt-4">
                         <span>NEW USER? </span>
-                        <Link to="/register" className="text-blue-500 hover:text-blue-700" >SIGN UP</Link>
+                        <Link to="/register" className="text-blue-500 hover:text-blue-700">SIGN UP</Link>
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     );
 };
 
