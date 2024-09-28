@@ -4,8 +4,8 @@ import Register from "../page/register/Register";
 import Home2 from "../page/home/Home2/Home2";
 import Layout from "./Layout";
 import { createBrowserRouter } from "react-router-dom";
-import Products from "../page/home/Product";
 import NotFound from "../page/not-found/NotFound";
+import Products from "../page/products/Products";
 
 const router = createBrowserRouter([
     {
