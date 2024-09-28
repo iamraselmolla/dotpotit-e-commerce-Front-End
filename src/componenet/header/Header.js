@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaPhoneAlt, FaHeart, FaUserCircle, FaShoppingCart } from 'react-icons/fa';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const Header = () => {
     return (
@@ -32,10 +33,8 @@ const Header = () => {
                 </div>
 
                 <div className="flex space-x-6">
-                    <a href="#" className="hover:text-green-500">HOMES</a>
-                    <a href="#" className="hover:text-green-500">PAGES</a>
-                    <a href="#" className="hover:text-green-500">PRODUCTS</a>
-                    <a href="#" className="hover:text-green-500">CONTACT</a>
+                    <Link to="/" className="hover:text-green-500">HOMES</Link>
+                    <Link to="/products" className="hover:text-green-500">PRODUCTS</Link>
                 </div>
 
                 <div className="flex items-center space-x-4">
@@ -44,7 +43,9 @@ const Header = () => {
                         <FaUserCircle className="w-6 h-6 mr-2" />
                         <div className="text-xs">
                             <div>WELCOME</div>
-                            <div className="font-semibold">LOG IN / REGISTER</div>
+                            <div className="font-semibold">
+                                <Link to="/login" className="hover:text-green-500">LOG IN</Link> / <Link to="/register" className="hover:text-green-500">REGISTER</Link>
+                            </div>
                         </div>
                     </div>
                     <div className="flex items-center">
