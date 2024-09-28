@@ -4,7 +4,7 @@ import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
 
 function Footer() {
     return (
-        <footer className="bg-gray-900 text-white py-10">
+        <footer className="py-10">
             <div className="container mx-auto flex flex-col lg:flex-row justify-between px-6">
                 {/* Brand Section */}
                 <div className="flex flex-col mb-6 lg:mb-0">

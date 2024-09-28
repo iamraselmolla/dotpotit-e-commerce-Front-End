@@ -5,6 +5,7 @@ import Home2 from "../page/home/Home2/Home2";
 import Layout from "./Layout";
 import { createBrowserRouter } from "react-router-dom";
 import Products from "../page/home/Product";
+import NotFound from "../page/not-found/NotFound";
 
 const router = createBrowserRouter([
     {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
             },
         ],
     },
+    {
+        path: "*",
+        element: <NotFound />,
+    }
 ]);
 
 export default router;
