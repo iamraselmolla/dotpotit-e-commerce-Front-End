@@ -1,10 +1,9 @@
 import React from 'react';
+import Product from '../../shared/Product';
 
 const Products = () => {
     return (
-        <div>
-
-        </div>
+        <Product />
     );
 };
 
