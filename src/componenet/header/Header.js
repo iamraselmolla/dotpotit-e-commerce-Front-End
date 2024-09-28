@@ -12,8 +12,8 @@ const Header = () => {
                     <span>(025) 3886 25 16</span>
                 </div>
                 <div className="flex items-center space-x-4">
-                    <a href="#" className="hover:text-green-500">Sell on Swoo</a>
-                    <a href="#" className="hover:text-green-500">Order Tracking</a>
+                    <a href="/" className="hover:text-green-500">Sell on Swoo</a>
+                    <a href="/" className="hover:text-green-500">Order Tracking</a>
                     <select className="bg-transparent border-none">
                         <option>USD</option>
                     </select>
@@ -35,6 +35,7 @@ const Header = () => {
                 <div className="flex space-x-6">
                     <Link to="/" className="hover:text-green-500">HOMES</Link>
                     <Link to="/products" className="hover:text-green-500">PRODUCTS</Link>
+                    <Link to="/add-product" className="hover:text-green-500">Add Product</Link>
                 </div>
 
                 <div className="flex items-center space-x-4">
