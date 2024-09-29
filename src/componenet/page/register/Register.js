@@ -5,6 +5,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { createUser } from '../../services/user_services';
 
 const Register = () => {
     const [loading, setLoading] = useState(false); // Loading state
@@ -37,11 +38,11 @@ const Register = () => {
         setLoading(true); // Start loading
 
         try {
-            const response = await axios.post('/api/register', {
+            const response = await createUser({
                 name: values.name,
                 email: values.email,
                 password: values.password,
-            });
+            })
             toast.success(response.data.message || 'Registration successful!');
             // Redirect to login or another page as needed
         } catch (error) {
