@@ -1,11 +1,10 @@
 import { RouterProvider } from 'react-router-dom';
 import './App.css';
-import router from './component/utlis/router'; // Ensure the path is correct
-import AuthProvider from './contexts/AuthContext'; // Import the AuthContext component
+import AuthProvider from './componenet/authcontext/AuthProvider';
+import router from "../src/componenet/utlis/router"
 
 function App() {
   return (
-    // Wrap the RouterProvider with AuthProvider
     <AuthProvider>
       <RouterProvider router={router} />
     </AuthProvider>
