@@ -1,87 +1,112 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
+import { FaTwitter, FaFacebookF, FaInstagram, FaYoutube, FaPinterest } from 'react-icons/fa';
+import { IoMdMail } from 'react-icons/io';
+import { BiDollar } from 'react-icons/bi';
+import { BsFillPhoneFill } from 'react-icons/bs';
 
-function Footer() {
+const Footer = () => {
     return (
-        <footer className="py-10">
-            <div className="container mx-auto flex flex-col lg:flex-row justify-between px-6">
-                {/* Brand Section */}
-                <div className="flex flex-col mb-6 lg:mb-0">
-                    <div className="flex items-center mb-4">
-                        <img src="logo.png" alt="SWOO Logo" className="w-16 h-16" />
-                        <span className="text-2xl font-bold ml-3">SWOO 1ST NYC TECH ONLINE MARKET</span>
+        <footer className="bg-gray-800 text-white">
+            <div className="container mx-auto p-6">
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+                    <div className="col-span-1">
+                        <h6 className="text-lg font-bold mb-3 uppercase">Swoo - 1st NYC tech online market</h6>
+                        <p className="uppercase">hotline 24/7</p>
+                        <h4 className="text-2xl font-bold text-green-400 mb-3"> (025) 3686 25 16 </h4>
+                        <p className="text-sm">257 Thatcher Road St, Brooklyn, Manhattan, NY 10092</p>
+                        <a className="text-sm" href="mailto:contact@Swootechmart.com">contact@Swootechmart.com</a>
+                        <div className="flex space-x-4 mt-4">
+                            <a href="#"><FaTwitter /></a>
+                            <a href="#"><FaFacebookF /></a>
+                            <a href="#"><FaInstagram /></a>
+                            <a href="#"><FaYoutube /></a>
+                            <a href="#"><FaPinterest /></a>
+                        </div>
                     </div>
-                    <p className="text-sm text-gray-400">
-                        Your trusted partner for tech solutions and online shopping.
-                    </p>
+                    <div className="col-span-1">
+                        <h6 className="text-lg font-bold mb-3 uppercase">top Categories</h6>
+                        <ul className="space-y-1">
+                            <li><a href="#">Laptops</a></li>
+                            <li><a href="#">PC &amp; Computers</a></li>
+                            <li><a href="#">Cell Phones</a></li>
+                            <li><a href="#">Tablets</a></li>
+                            <li><a href="#">Gaming &amp; VR</a></li>
+                            <li><a href="#">Networks</a></li>
+                            <li><a href="#">Cameras</a></li>
+                            <li><a href="#">Sounds</a></li>
+                            <li><a href="#">Office</a></li>
+                        </ul>
+                    </div>
+                    <div className="col-span-1">
+                        <h6 className="text-lg font-bold mb-3 uppercase">company</h6>
+                        <ul className="space-y-1">
+                            <li><a href="#">About Swoo</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Career</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Sitemap</a></li>
+                            <li><a href="#">Store Locations</a></li>
+                        </ul>
+                    </div>
+                    <div className="col-span-1">
+                        <h6 className="text-lg font-bold mb-3 uppercase">help center</h6>
+                        <ul className="space-y-1">
+                            <li><a href="#">Customer Service</a></li>
+                            <li><a href="#">Policy</a></li>
+                            <li><a href="#">Terms &amp; Conditions</a></li>
+                            <li><a href="#">Track Order</a></li>
+                            <li><a href="#">FAQs</a></li>
+                            <li><a href="#">My Account</a></li>
+                            <li><a href="#">Product Support</a></li>
+                        </ul>
+                    </div>
+                    <div className="col-span-1">
+                        <h6 className="text-lg font-bold mb-3 uppercase">partner</h6>
+                        <ul className="space-y-1">
+                            <li><a href="#">Become Seller</a></li>
+                            <li><a href="#">Affiliate</a></li>
+                            <li><a href="#">Advertise</a></li>
+                            <li><a href="#">Partnership</a></li>
+                        </ul>
+                    </div>
                 </div>
-
-                {/* Navigation Links */}
-                <div className="flex flex-col lg:flex-row lg:space-x-12 mb-6 lg:mb-0">
-                    <div className="flex flex-col mb-4 lg:mb-0">
-                        <h4 className="text-lg font-semibold mb-2">Categories</h4>
-                        <Link to="/laptops" className="footer-link">Laptops</Link>
-                        <Link to="/computers" className="footer-link">PC & Computers</Link>
-                        <Link to="/cell-phones" className="footer-link">Cell Phones</Link>
-                    </div>
-                    <div className="flex flex-col mb-4 lg:mb-0">
-                        <h4 className="text-lg font-semibold mb-2">Company</h4>
-                        <Link to="/about" className="footer-link">About Siwon</Link>
-                        <Link to="/contact" className="footer-link">Contact</Link>
-                        <Link to="/career" className="footer-link">Career</Link>
-                    </div>
-                    <div className="flex flex-col mb-4 lg:mb-0">
-                        <h4 className="text-lg font-semibold mb-2">Support</h4>
-                        <Link to="/help-center" className="footer-link">Help Center</Link>
-                        <Link to="/customer-service" className="footer-link">Customer Service</Link>
-                        <Link to="/faq" className="footer-link">FAQ</Link>
-                    </div>
-                    <div className="flex flex-col mb-4 lg:mb-0">
-                        <h4 className="text-lg font-semibold mb-2">Partnership</h4>
-                        <Link to="/partner" className="footer-link">Partner</Link>
-                        <Link to="/become-seller" className="footer-link">Become Seller</Link>
-                        <Link to="/affiliate" className="footer-link">Affiliate</Link>
+                <div className="mt-12 border-t border-gray-600 pt-6">
+                    <div className="grid grid-cols-1 md:grid-cols-5 items-center">
+                        <div className="col-span-1">
+                            <div className="flex items-center space-x-2">
+                                <BiDollar />
+                                <div className="dropdown relative">
+                                    <button className="bg-gray-700 rounded text-white p-2">
+                                        USD
+                                    </button>
+                                    <div className="dropdown-content absolute hidden bg-gray-800 text-white mt-1 rounded shadow-lg">
+                                        <a href="#" className="block px-4 py-2">USD</a>
+                                        <a href="#" className="block px-4 py-2">EUR</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-span-3 text-center">
+                            <h6 className="text-lg font-bold mb-3 uppercase">subscribe &amp; get <span className="text-red-400">10% off</span> for your first order</h6>
+                            <div className="flex items-center justify-center">
+                                <input type="email" placeholder="Enter your email address" className="p-2 rounded-l-md" />
+                                <button className="bg-green-400 text-white p-2 rounded-r-md">Subscribe</button>
+                            </div>
+                            <p className="text-sm mt-2">By subscribing, you’re accepting our <a href="#" className="text-blue-300 underline">Policy</a></p>
+                        </div>
+                        <div className="col-span-1 text-right">
+                            <a href="#" className="text-blue-300">
+                                <BsFillPhoneFill className="inline" /> Mobile Site
+                            </a>
+                        </div>
                     </div>
                 </div>
-
-                {/* Subscribe Section */}
-                <div className="flex flex-col items-start mb-6 lg:mb-0">
-                    <h4 className="text-lg font-semibold mb-2">Subscribe to our Newsletter</h4>
-                    <p className="text-sm text-gray-400 mb-4">Get the latest updates and offers.</p>
-                    <input
-                        type="email"
-                        placeholder="Your Email"
-                        className="p-2 rounded-md border border-gray-700 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 mb-2"
-                    />
-                    <button className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">
-                        Subscribe
-                    </button>
+                <div className="text-center mt-6">
+                    <p className="text-gray-400">© 2024 <strong className="text-white">Swoo</strong>. All Rights Reserved</p>
                 </div>
-            </div>
-
-            {/* Social Media Links */}
-            <div className="flex justify-center space-x-6 mt-6">
-                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-                    <FaFacebook size={24} />
-                </a>
-                <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-                    <FaTwitter size={24} />
-                </a>
-                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-                    <FaInstagram size={24} />
-                </a>
-                <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-                    <FaYoutube size={24} />
-                </a>
-            </div>
-
-            {/* Copyright Section */}
-            <div className="text-center text-gray-400 text-sm mt-6">
-                &copy; {new Date().getFullYear()} SWOO. All Rights Reserved.
             </div>
         </footer>
     );
-}
+};
 
 export default Footer;

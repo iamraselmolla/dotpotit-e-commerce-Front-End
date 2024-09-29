@@ -4,6 +4,8 @@ import Categories from '../Categories';
 import Products from '../../../shared/Product';
 import FeaturedBrands from '../FeaturesBand';
 import TopCategories from '../TopCategories';
+import DealsOfTheDay from '../DealsofTheDay';
+import Save from '../Save';
 
 function Home2() {
     return (
@@ -15,6 +17,8 @@ function Home2() {
             </div>
             < Categories />
             <Products />
+            <DealsOfTheDay />
+            <Save />
         </div>
     );
 }

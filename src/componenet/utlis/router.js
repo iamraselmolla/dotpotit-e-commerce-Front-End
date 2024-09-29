@@ -7,6 +7,7 @@ import { createBrowserRouter } from "react-router-dom";
 import NotFound from "../page/not-found/NotFound";
 import Products from "../page/products/Products";
 import AddProduct from "../page/add-product/AddProduct";
+import VerifyEmail from "../page/verify-email/VerifyEmail";
 
 const router = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
             {
                 path: "/register",
                 element: <Register />,
+            },
+            {
+                path: '/verify/:token',
+                element: <VerifyEmail />, // Verification Route
             },
         ],
     },

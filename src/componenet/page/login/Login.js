@@ -22,6 +22,7 @@ const Login = () => {
     });
 
     const handleLogin = async (values) => {
+        console.log(values)
         setLoading(true);
         try {
             const response = await userLogin(values);
