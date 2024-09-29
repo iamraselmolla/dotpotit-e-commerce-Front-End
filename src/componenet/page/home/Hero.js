@@ -75,9 +75,9 @@ const Hero = () => {
                             }}
                         >
                             {/* Overlay content with 50% width, aligned to the right */}
-                            <div className="w-1/2 bg-opacity-50 p-6  text-right">
+                            <div className="w-2/3 bg-opacity-50 p-6  text-right">
                                 <p className="mb-4">Xomia</p>
-                                <h2 className="text-2xl font-bold mt-2">Sport Water<br />Resistance Watch</h2>
+                                <h2 className="text-lg mb-5 font-bold mt-2">Sport Water<br />Resistance Watch</h2>
                                 <button className="bg-black text-white py-2 px-4 rounded-lg">Shop Now</button>
                             </div>
                         </div>
