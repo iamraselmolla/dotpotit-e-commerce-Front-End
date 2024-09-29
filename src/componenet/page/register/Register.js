@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { createUser } from '../../services/user_services';
+import Loader from '../../shared/Loader';
 
 const Register = () => {
     const [loading, setLoading] = useState(false); // Loading state
@@ -54,9 +55,7 @@ const Register = () => {
     return (
         <div className="min-h-screen bg-gray-100 flex items-center justify-center relative">
             {loading && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <div className="w-16 h-16 border-8 border-dashed rounded-full border-gray-300 animate-spin border-t-green-500"></div>
-                </div>
+                <Loader />
             )}
             <div className="container mx-auto max-w-6xl bg-white shadow-md rounded-lg overflow-hidden flex flex-col lg:flex-row">
                 <div className="flex justify-center items-center bg-gray-200 lg:w-1/2 p-6">
