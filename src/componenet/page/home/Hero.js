@@ -23,7 +23,7 @@ const Hero = () => {
                             backgroundImage: 'url("/images/hero.png")', // Update with your image path
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',
-                            height: '300px', // Adjust height as needed
+                            height: '320px', // Adjust height as needed
                         }}
                     >
                         {/* Overlay Content */}
@@ -49,9 +49,9 @@ const Hero = () => {
                         </div>
                         <div className="relative h-36 w-full">
                             <img src="images/hero1.png" alt="Image 1" className="object-cover h-full w-full rounded-lg" />
-                            <div className="absolute inset-0 flex flex-col pl-6 rounded-lg text-white">
+                            <div className="absolute mt-6 inset-0 flex flex-col pl-6 rounded-lg text-white">
                                 <h4 className="text-lg lg:w-1/2 w-1/2 text-black font-bold">Logitek Bluetooth
-                                    <span className='bg-yellow-400'>Keyboard</span></h4>
+                                    <span className='text-yellow-400'> Keyboard</span></h4>
                                 <a href="#" className="text-blue-600 hover:text-blue-800 underline-none border-none">
                                     View More
                                 </a>
@@ -67,7 +67,7 @@ const Hero = () => {
                     <div className="space-y-6">
                         {/* First image div with content aligned to the right */}
                         <div
-                            className="h-64 relative flex items-center justify-end rounded-lg shadow-lg"
+                            className="h-52 relative flex items-center justify-end rounded-lg shadow-lg"
                             style={{
                                 backgroundImage: 'url("/images/hero3.png")', // Update with your image path
                                 backgroundSize: 'cover',
@@ -84,7 +84,7 @@ const Hero = () => {
 
                         {/* Second image div with content aligned to the left */}
                         <div
-                            className="h-64 relative flex items-center justify-start rounded-lg shadow-lg"
+                            className="h-52 relative flex items-center justify-start rounded-lg shadow-lg"
                             style={{
                                 backgroundImage: 'url("/images/hero4.png")', // Update with your image path
                                 backgroundSize: 'cover',
