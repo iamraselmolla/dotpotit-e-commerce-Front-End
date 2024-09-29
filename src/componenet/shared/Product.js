@@ -1,69 +1,33 @@
 import React from 'react';
+import { BiHeart } from 'react-icons/bi';
+import { CgShoppingCart } from 'react-icons/cg';
 
-function Product() {
-    const products = [
-        {
-            image: 'https://placehold.co/300x300',
-            title: 'Product 1',
-            price: '$29.99',
-        },
-        {
-            image: 'https://placehold.co/300x300',
-            title: 'Product 1',
-            price: '$29.99',
-        },
-        {
-            image: 'https://placehold.co/300x300',
-            title: 'Product 1',
-            price: '$29.99',
-        },
-        {
-            image: 'https://placehold.co/300x300',
-            title: 'Product 1',
-            price: '$29.99',
-        },
-        {
-            image: 'https://placehold.co/300x300',
-            title: 'Product 1',
-            price: '$29.99',
-        },
-        {
-            image: 'https://placehold.co/300x300',
-            title: 'Product 1',
-            price: '$29.99',
-        },
-        {
-            image: 'https://placehold.co/300x300',
-            title: 'Product 1',
-            price: '$29.99',
-        },
-        {
-            image: 'https://placehold.co/300x300',
-            title: 'Product 1',
-            price: '$29.99',
-        },
-        {
-            image: 'https://placehold.co/300x300',
-            title: 'Product 1',
-            price: '$29.99',
-        },
-        // ... other products
-    ];
-
+const Product = ({ product }) => {
     return (
-        <section className="bg-white py-20">
-            <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {products.map((product) => (
-                    <div key={product.title} className="bg-white p-4 rounded-lg shadow-md hover:bg-gray-100">
-                        <img src={product.image} alt={product.title} className="w-full h-48 object-cover rounded-lg" />
-                        <h3 className="text-lg font-semibold mt-2">{product.title}</h3>
-                        <p className="text-gray-600">{product.price}</p>
-                        <button className="bg-blue-500 text-white px-4 py-2 rounded-full mt-2">Add to Cart</button>
-                    </div>
-                ))}
+        <div className="card bg-base-100 shadow-xl">
+            <figure className="px-10 pt-10">
+                <img src={product.image} alt={product.name} className="rounded-xl" />
+            </figure>
+            <div className="card-body items-center text-center">
+                <h2 className="card-title text-lg font-bold">{product.name}</h2>
+                <p className="text-2xl font-semibold text-primary">${product.price.toFixed(2)}</p>
+                <div className="flex items-center space-x-2 text-sm">
+                    <span className="text-success">FREE SHIPPING</span>
+                    <span className="text-success">FREE GIFT</span>
+                </div>
+                <div className="badge badge-outline">In stock</div>
+                <div className="card-actions">
+                    <button className="btn btn-primary btn-block">
+                        <CgShoppingCart className="w-4 h-4 mr-2" />
+                        Add to cart
+                    </button>
+                </div>
             </div>
-        </section>
+            <button className="btn btn-circle btn-ghost absolute right-2 top-2">
+                <BiHeart className="w-6 h-6" />
+            </button>
+        </div>
     );
-}
+};
 
 export default Product;

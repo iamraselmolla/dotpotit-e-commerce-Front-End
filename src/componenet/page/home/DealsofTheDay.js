@@ -126,12 +126,12 @@ const DealsOfTheDay = () => {
                         </div>
                         <div className="overflow-hidden">
                             <div className="swiper-wrapper">
-                                {Array(3).fill(null).map((_, index) => (
+                                {Array(4).fill(null).map((_, index) => (
                                     <div key={index} className="swiper-slide mb-4">
                                         <div className="flex">
-                                            <a href="#" className="flex items-center space-x-2">
+                                            <a href="/" className="flex items-center space-x-2">
                                                 <div className="img">
-                                                    <img src="https://via.placeholder.com/150" alt="" className="w-16 h-16 object-cover" />
+                                                    <img src={`images/blog/blog${index + 1}.jpg`} alt="" className="max-w-full" />
                                                 </div>
                                                 <div>
                                                     <strong className="block text-sm font-bold">How to upgrade HDD for your PC by yourself</strong>
@@ -143,7 +143,9 @@ const DealsOfTheDay = () => {
                                 ))}
                             </div>
                         </div>
-                        <a href="#" className="text-xs mt-5 text-blue-600 hover:underline">See All Articles <FaAngleRight className="inline ml-1" /></a>
+                        <div className="mt-3">
+                            <a href="/" className="text-xs text-blue-600 hover:underline">See All Articles <FaAngleRight className="inline ml-1" /></a>
+                        </div>
                     </div>
                 </div>
             </div>
