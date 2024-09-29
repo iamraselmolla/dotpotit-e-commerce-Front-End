@@ -39,8 +39,8 @@ const Hero = () => {
                     <div className="flex gap-4 justify-between mt-4">
                         <div className="relative h-36 w-full">
                             <img src="images/hero2.png" alt="Image 2" className="object-cover h-full w-full rounded-lg" />
-                            <div className="absolute mt-8 inset-0 flex flex-col pl-6 rounded-lg text-white">
-                                <h4 className="text-lg lg:w-3/5 text-black font-bold">Sono Playgo 5
+                            <div className="absolute mt-6 inset-0 flex flex-col pl-6 rounded-lg text-white">
+                                <h4 className="text-lg lg:w-1/2 w-1/2 text-black font-bold">Sono Playgo 5
                                     from <span className='text-green-500'>$569</span></h4>
                                 <a href="#" className="text-blue-600 hover:text-blue-800 underline-none border-none">
                                     Discover Now
@@ -50,7 +50,8 @@ const Hero = () => {
                         <div className="relative h-36 w-full">
                             <img src="images/hero1.png" alt="Image 1" className="object-cover h-full w-full rounded-lg" />
                             <div className="absolute inset-0 flex flex-col pl-6 rounded-lg text-white">
-                                <h4 className="text-lg font-bold">Smart Watches</h4>
+                                <h4 className="text-lg lg:w-1/2 w-1/2 text-black font-bold">Logitek Bluetooth
+                                    <span className='bg-yellow-400'>Keyboard</span></h4>
                                 <a href="#" className="text-blue-600 hover:text-blue-800 underline-none border-none">
                                     View More
                                 </a>
@@ -61,13 +62,45 @@ const Hero = () => {
                     </div>
                 </div>
 
-                {/* Third Column - 25% width */}
                 <div className="md:col-span-1 bg-white p-4 rounded-lg shadow">
-                    <div className="flex items-center">
-                        <h3 className="ml-2 font-bold">Exclusive Deals</h3>
+                    {/* Parent div containing both image divs */}
+                    <div className="space-y-6">
+                        {/* First image div with content aligned to the right */}
+                        <div
+                            className="h-64 relative flex items-center justify-end rounded-lg shadow-lg"
+                            style={{
+                                backgroundImage: 'url("/images/hero3.png")', // Update with your image path
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                            }}
+                        >
+                            {/* Overlay content with 50% width, aligned to the right */}
+                            <div className="w-1/2 bg-opacity-50 p-6  text-right">
+                                <p className="mb-4">Xomia</p>
+                                <h2 className="text-2xl font-bold mt-2">Sport Water<br />Resistance Watch</h2>
+                                <button className="bg-black text-white py-2 px-4 rounded-lg">Shop Now</button>
+                            </div>
+                        </div>
+
+                        {/* Second image div with content aligned to the left */}
+                        <div
+                            className="h-64 relative flex items-center justify-start rounded-lg shadow-lg"
+                            style={{
+                                backgroundImage: 'url("/images/hero4.png")', // Update with your image path
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                            }}
+                        >
+                            {/* Overlay content with 50% width, aligned to the left */}
+                            <div className="w-1/2 bg-opacity-50 p-6 text-white text-left">
+                                <h2 className="text-2xl font-bold mb-2">OKODo hero 11+ black</h2>
+                                <p className="text-green-500 font-bold">from $160</p>
+                            </div>
+                        </div>
                     </div>
-                    <p className="text-sm mt-2">Grab the best offers on our newest gadgets</p>
                 </div>
+
+
             </div>
 
             {/* Additional Products */}
