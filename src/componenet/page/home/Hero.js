@@ -5,7 +5,7 @@ const Hero = () => {
         <div className="container mx-auto p-4">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 {/* First Column - 25% width */}
-                <div className="md:col-span-1 bg-white p-4 rounded-lg shadow">
+                <div className="md:col-span-1 bg-white p-4 pl-8 rounded-lg shadow">
                     <h2 className="text-red-600 font-bold text-xl mb-4">SALE 40% OFF</h2>
                     <ul className="space-y-2">
                         {['Laptops', 'PC & Computers', 'Cell Phones', 'Tablets', 'Gaming & VR', 'Networking', 'Cameras', 'Sounds', 'Office', 'Storage, USB', 'Accessories', 'Clearance'].map((category, index) => (
@@ -96,34 +96,6 @@ const Hero = () => {
                                 <h2 className="text-2xl font-bold mb-2">OKODo hero 11+ black</h2>
                                 <p className="text-green-500 font-bold">from $160</p>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-
-            {/* Additional Products */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                <div className="bg-white p-4 rounded-lg shadow flex items-center">
-                    <img src="/api/placeholder/100/100" alt="Sono Playgo 5" className="w-1/3" />
-                    <div className="ml-4">
-                        <h3 className="font-bold">Sono Playgo 5</h3>
-                        <p className="text-green-600">from $569</p>
-                        <button className="btn btn-sm btn-outline mt-2">DISCOVER NOW</button>
-                    </div>
-                </div>
-                <div className="bg-white p-4 rounded-lg shadow flex items-center">
-                    <img src="/api/placeholder/100/100" alt="Logitek Bluetooth Keyboard" className="w-1/3" />
-                    <div className="ml-4">
-                        <h3 className="font-bold">Logitek Bluetooth Keyboard</h3>
-                        <p>Best for all devices</p>
-                        <div className="rating rating-sm mt-2">
-                            <input type="radio" name="rating-6" className="mask mask-star-2 bg-orange-400" />
-                            <input type="radio" name="rating-6" className="mask mask-star-2 bg-orange-400" checked />
-                            <input type="radio" name="rating-6" className="mask mask-star-2 bg-orange-400" />
-                            <input type="radio" name="rating-6" className="mask mask-star-2 bg-orange-400" />
-                            <input type="radio" name="rating-6" className="mask mask-star-2 bg-orange-400" />
                         </div>
                     </div>
                 </div>

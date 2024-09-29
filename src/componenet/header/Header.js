@@ -8,8 +8,8 @@ const Header = () => {
             {/* Top bar */}
             <div className="container mx-auto px-4 py-2 flex justify-between items-center text-sm">
                 <div className="flex items-center space-x-4">
-                    <span className="font-semibold">Hotline 24/7</span>
-                    <span>(025) 3886 25 16</span>
+                    <span className="font-semibold bg-gray-300 px-6 py-2 rounded-lg">Hotline 24/7</span>
+                    <span className='font-extrabold'>(025) 3886 25 16</span>
                 </div>
                 <div className="flex items-center space-x-4">
                     <a href="/" className="hover:text-green-500">Sell on Swoo</a>
