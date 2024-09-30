@@ -8,7 +8,7 @@ import { AuthContext } from '../authcontext/AuthProvider';
 
 const Product = ({ product }) => {
     const [isInWishlist, setIsInWishlist] = useState(false);
-    const { wishlistNumber, setWishlistNumber } = useContext(AuthContext); // Use context to access wishlistNumber and setWishlistNumber
+    const { setWishlistNumber } = useContext(AuthContext); // Use context to access wishlistNumber and setWishlistNumber
 
     // Function to add a product to the wishlist
     const addToWishlist = (productItem) => {
@@ -48,7 +48,7 @@ const Product = ({ product }) => {
     }, [product]);
 
     return (
-        <div className="relative bg-white rounded-lg shadow-lg transition-transform transform hover:scale-105">
+        <div className="relative bg-white rounded-lg shadow-lg transition-transform transform hover:scale-101">
             <figure className="px-6 pt-6">
                 <img
                     src={product?.images[0]} // Optional chaining

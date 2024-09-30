@@ -22,7 +22,7 @@ const Products = () => {
         fetchAllProducts();
     }, [])
     return (
-        <div className="container grid grid-cols-1 md:grid-cols-3 gap-2 lg:grid-cols-5 mx-auto p-4">
+        <div className="container grid grid-cols-1 md:grid-cols-3 gap-6 lg:grid-cols-4 mx-auto p-4">
             {loading && <Loader />}
             {products?.map(prodcut => <Product key={prodcut?._id} product={prodcut} />)}
         </div>

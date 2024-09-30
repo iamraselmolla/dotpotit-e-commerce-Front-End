@@ -6,7 +6,7 @@ import { BsFillPhoneFill } from 'react-icons/bs';
 
 const Footer = () => {
     return (
-        <footer className="bg-gray-800 text-white">
+        <footer className="bg-white text-black">
             <div className="container mx-auto p-6">
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
                     <div className="col-span-1">
@@ -16,57 +16,57 @@ const Footer = () => {
                         <p className="text-sm">257 Thatcher Road St, Brooklyn, Manhattan, NY 10092</p>
                         <a className="text-sm" href="mailto:contact@Swootechmart.com">contact@Swootechmart.com</a>
                         <div className="flex space-x-4 mt-4">
-                            <a href="#"><FaTwitter /></a>
-                            <a href="#"><FaFacebookF /></a>
-                            <a href="#"><FaInstagram /></a>
-                            <a href="#"><FaYoutube /></a>
-                            <a href="#"><FaPinterest /></a>
+                            <a href="/"><FaTwitter /></a>
+                            <a href="/"><FaFacebookF /></a>
+                            <a href="/"><FaInstagram /></a>
+                            <a href="/"><FaYoutube /></a>
+                            <a href="/"><FaPinterest /></a>
                         </div>
                     </div>
                     <div className="col-span-1">
                         <h6 className="text-lg font-bold mb-3 uppercase">top Categories</h6>
                         <ul className="space-y-1">
-                            <li><a href="#">Laptops</a></li>
-                            <li><a href="#">PC &amp; Computers</a></li>
-                            <li><a href="#">Cell Phones</a></li>
-                            <li><a href="#">Tablets</a></li>
-                            <li><a href="#">Gaming &amp; VR</a></li>
-                            <li><a href="#">Networks</a></li>
-                            <li><a href="#">Cameras</a></li>
-                            <li><a href="#">Sounds</a></li>
-                            <li><a href="#">Office</a></li>
+                            <li><a href="/">Laptops</a></li>
+                            <li><a href="/">PC &amp; Computers</a></li>
+                            <li><a href="/">Cell Phones</a></li>
+                            <li><a href="/">Tablets</a></li>
+                            <li><a href="/">Gaming &amp; VR</a></li>
+                            <li><a href="/">Networks</a></li>
+                            <li><a href="/">Cameras</a></li>
+                            <li><a href="/">Sounds</a></li>
+                            <li><a href="/">Office</a></li>
                         </ul>
                     </div>
                     <div className="col-span-1">
                         <h6 className="text-lg font-bold mb-3 uppercase">company</h6>
                         <ul className="space-y-1">
-                            <li><a href="#">About Swoo</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Career</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Sitemap</a></li>
-                            <li><a href="#">Store Locations</a></li>
+                            <li><a href="/">About Swoo</a></li>
+                            <li><a href="/">Contact</a></li>
+                            <li><a href="/">Career</a></li>
+                            <li><a href="/">Blog</a></li>
+                            <li><a href="/">Sitemap</a></li>
+                            <li><a href="/">Store Locations</a></li>
                         </ul>
                     </div>
                     <div className="col-span-1">
                         <h6 className="text-lg font-bold mb-3 uppercase">help center</h6>
                         <ul className="space-y-1">
-                            <li><a href="#">Customer Service</a></li>
-                            <li><a href="#">Policy</a></li>
-                            <li><a href="#">Terms &amp; Conditions</a></li>
-                            <li><a href="#">Track Order</a></li>
-                            <li><a href="#">FAQs</a></li>
-                            <li><a href="#">My Account</a></li>
-                            <li><a href="#">Product Support</a></li>
+                            <li><a href="/">Customer Service</a></li>
+                            <li><a href="/">Policy</a></li>
+                            <li><a href="/">Terms &amp; Conditions</a></li>
+                            <li><a href="/">Track Order</a></li>
+                            <li><a href="/">FAQs</a></li>
+                            <li><a href="/">My Account</a></li>
+                            <li><a href="/">Product Support</a></li>
                         </ul>
                     </div>
                     <div className="col-span-1">
                         <h6 className="text-lg font-bold mb-3 uppercase">partner</h6>
                         <ul className="space-y-1">
-                            <li><a href="#">Become Seller</a></li>
-                            <li><a href="#">Affiliate</a></li>
-                            <li><a href="#">Advertise</a></li>
-                            <li><a href="#">Partnership</a></li>
+                            <li><a href="/">Become Seller</a></li>
+                            <li><a href="/">Affiliate</a></li>
+                            <li><a href="/">Advertise</a></li>
+                            <li><a href="/">Partnership</a></li>
                         </ul>
                     </div>
                 </div>
@@ -80,8 +80,8 @@ const Footer = () => {
                                         USD
                                     </button>
                                     <div className="dropdown-content absolute hidden bg-gray-800 text-white mt-1 rounded shadow-lg">
-                                        <a href="#" className="block px-4 py-2">USD</a>
-                                        <a href="#" className="block px-4 py-2">EUR</a>
+                                        <a href="/" className="block px-4 py-2">USD</a>
+                                        <a href="/" className="block px-4 py-2">EUR</a>
                                     </div>
                                 </div>
                             </div>
@@ -92,10 +92,10 @@ const Footer = () => {
                                 <input type="email" placeholder="Enter your email address" className="p-2 rounded-l-md" />
                                 <button className="bg-green-400 text-white p-2 rounded-r-md">Subscribe</button>
                             </div>
-                            <p className="text-sm mt-2">By subscribing, you’re accepting our <a href="#" className="text-blue-300 underline">Policy</a></p>
+                            <p className="text-sm mt-2">By subscribing, you’re accepting our <a href="/" className="text-blue-300 underline">Policy</a></p>
                         </div>
                         <div className="col-span-1 text-right">
-                            <a href="#" className="text-blue-300">
+                            <a href="/" className="text-blue-300">
                                 <BsFillPhoneFill className="inline" /> Mobile Site
                             </a>
                         </div>

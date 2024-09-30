@@ -51,6 +51,10 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><WishLists /></PrivateRoute>,
             },
             {
+                path: "/cart",
+                element: <PrivateRoute><WishLists /></PrivateRoute>,
+            },
+            {
                 path: "/register",
                 element: <Register />,
             },
