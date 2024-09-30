@@ -8,7 +8,7 @@ import { AuthContext } from '../authcontext/AuthProvider';
 
 const Product = ({ product }) => {
     const [isInWishlist, setIsInWishlist] = useState(false);
-    const { setWishlistNumber } = useContext(AuthContext); // Use context to access wishlistNumber and setWishlistNumber
+    const { setWishlistNumber, addToCart } = useContext(AuthContext); // Use context to access wishlistNumber and setWishlistNumber
 
     // Function to add a product to the wishlist
     const addToWishlist = (productItem) => {
@@ -68,7 +68,7 @@ const Product = ({ product }) => {
                 <div className="badge badge-outline text-green-600 mt-2">In stock</div>
 
                 <div className="mt-4 flex flex-col space-y-2">
-                    <button
+                    <button onClick={() => addToCart(product)}
                         className="flex items-center justify-center w-full bg-blue-600 text-white font-semibold py-2 rounded-lg transition-colors hover:bg-blue-700"
                     >
                         <CgShoppingCart className="w-5 h-5 mr-2" />
