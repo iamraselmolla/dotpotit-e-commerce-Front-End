@@ -1,9 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BiHeart } from 'react-icons/bi';
 import { CgShoppingCart } from 'react-icons/cg';
+import toast from 'react-hot-toast';
+import { FaHeart } from 'react-icons/fa';
 
 const Product = ({ product }) => {
+    const [isInWishlist, setIsInWishlist] = useState(false);
+
+    // Function to add a product to the wishlist
+    const addToWishlist = (productItem) => {
+        // Get the existing wishlist from local storage, or initialize an empty array
+        const existingWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+        // Check if the product is already in the wishlist
+        const existingProductIndex = existingWishlist.findIndex(item => item?._id?.toString() === productItem?._id?.toString());
+        console.log(existingProductIndex)
+
+        if (existingProductIndex < 0) {
+            // If not, add the product with the required details
+            const productToAdd = {
+                id: productItem._id,
+                name: productItem.name,
+                price: productItem.price,
+                image: productItem.images[0],
+            };
+            existingWishlist.push(productToAdd);
+
+            // Update the local storage with the new wishlist
+            localStorage.setItem('wishlist', JSON.stringify(existingWishlist));
+            toast.success('Product added to wishlist');
+            setIsInWishlist(true); // Update state to reflect that the product is in the wishlist
+        }
+    };
+
+    // Check if product is already in wishlist on component mount
+    useEffect(() => {
+        const existingWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        const isProductInWishlist = existingWishlist?.some(item => item?.id?.toString() === product?._id?.toString());
+        setIsInWishlist(isProductInWishlist);
+    }, [product]);
+
     return (
         <div className="relative bg-white rounded-lg shadow-lg transition-transform transform hover:scale-105">
             <figure className="px-6 pt-6">
@@ -41,8 +78,15 @@ const Product = ({ product }) => {
                     </Link>
                 </div>
             </div>
-            <button className="absolute right-3 top-3 p-2 rounded-full bg-white shadow hover:bg-gray-100 transition">
-                <BiHeart className="w-6 h-6 text-gray-600" />
+            <button
+
+                className="absolute right-3 top-3 p-2 rounded-full bg-white shadow hover:bg-gray-100 transition"
+            >
+                {isInWishlist ? (
+                    <FaHeart className="w-6 h-6 text-red-600" /> // Red heart icon if in wishlist
+                ) : (
+                    <BiHeart onClick={() => addToWishlist(product)} className="w-6 h-6 text-gray-600" /> // Default heart icon
+                )}
             </button>
         </div>
     );
