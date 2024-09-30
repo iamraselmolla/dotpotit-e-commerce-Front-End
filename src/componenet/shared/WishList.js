@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaTrash, FaMinus, FaPlus, FaCheckCircle } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const WishList = ({ product, removeFromWishlist }) => {
 
@@ -29,7 +30,7 @@ const WishList = ({ product, removeFromWishlist }) => {
             </div>
 
             {/* Product Name */}
-            <h3 className="font-bold text-lg mb-2">{product.name}</h3>
+            <Link to={`/products/${product?.id}`}><h3 className="font-bold text-lg mb-2">{product.name}</h3></Link>
 
             {/* Price */}
             <div className="text-red-600 font-bold text-xl mb-4">${product.price.min} - ${product.price.max}</div>
