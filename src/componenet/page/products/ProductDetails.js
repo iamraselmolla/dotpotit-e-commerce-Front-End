@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaStar, FaPlus, FaEye, FaShoppingCart, FaHeart, FaTwitter, FaFacebookF, FaInstagram, FaYoutube, FaDribbble, FaCheckCircle, FaMinus } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import { findProductById } from '../../services/user_services';
+import { AuthContext } from '../../authcontext/AuthProvider';
 
 const ProductDetails = () => {
     const { id } = useParams(); // Get the id from the URL parameters
     const [quantity, setQuantity] = useState(1);
     const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(true);
+    const { addToCart } = useContext(AuthContext)
     const [selectedImage, setSelectedImage] = useState(""); // Initialize as an empty string
 
     useEffect(() => {
@@ -150,7 +152,7 @@ const ProductDetails = () => {
                 <div className="w-full lg:w-3/12 px-4 mt-6 lg:mt-0">
                     <div className="bg-gray-50 p-6 rounded-lg">
                         <p className="text-xs text-gray-600 uppercase mb-1">Total Price:</p>
-                        <h4 className="text-3xl font-bold mb-4">${product?.price?.max}</h4>
+                        <h4 className="text-3xl font-bold mb-4">${product?.price?.min}</h4>
                         <div className="flex items-center text-xs border-b pb-3 mb-3">
                             <img src="/api/placeholder/60/20" alt="Affirm" className="h-5 mr-2" />
                             <span className="text-red-600 font-bold mr-1">$49/m</span>
@@ -166,7 +168,7 @@ const ProductDetails = () => {
                             <input type="number" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value) || 1)} className="w-full text-center border-0" min="1" />
                             <button onClick={() => setQuantity(quantity + 1)} className="p-2"><FaPlus /></button>
                         </div>
-                        <button className="w-full bg-blue-600 text-white py-2 rounded-lg mb-2">Add to Cart</button>
+                        <button onClick={() => addToCart(product)} className="w-full bg-blue-600 text-white py-2 rounded-lg mb-2">Add to Cart</button>
                         <button className="w-full bg-gray-300 text-gray-800 py-2 rounded-lg">Buy Now</button>
                     </div>
                 </div>
