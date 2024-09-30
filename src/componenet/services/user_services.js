@@ -10,6 +10,7 @@ const BASE_URL = {
 
     // createProduct: "/product/create-product",
     getAllProducts: "/product/get-products",
+    findProductById: "/product//get-product",
 
 };
 
@@ -35,4 +36,8 @@ export function getAllCategories() {
 
 export function getAllProducts() {
     return http.get(BASE_URL.getAllProducts);
+}
+
+export function findProductById(id) {
+    return http.get(`${BASE_URL.findProductById}/${id}`);
 }

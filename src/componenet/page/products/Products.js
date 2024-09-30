@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Product from '../../shared/Product';
-import dummyProducts from '../../shared/productData';
 import { getAllProducts } from '../../services/user_services';
 import Loader from '../../shared/Loader';
+import Product from '../../shared/Product';
 
 const Products = () => {
     const [products, setProducts] = useState([]);

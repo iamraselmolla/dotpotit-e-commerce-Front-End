@@ -1,13 +1,42 @@
-import React, { useState } from 'react';
-import { FaStar, FaPlus, FaEye, FaShoppingCart, FaHeart, FaTwitter, FaFacebookF, FaInstagram, FaYoutube, FaDribbble, FaCheckCircle, FaMinus, FaRedo, FaShippingFast } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
+import { FaStar, FaPlus, FaEye, FaShoppingCart, FaHeart, FaTwitter, FaFacebookF, FaInstagram, FaYoutube, FaDribbble, FaCheckCircle, FaMinus } from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
+import { findProductById } from '../../services/user_services';
 
-const ProductDetails = ({ product }) => {
+
+
+const ProductDetails = () => {
+    const { id } = useParams(); // Get the id from the URL parameters
     const [quantity, setQuantity] = useState(1);
+    const [product, setProduct] = useState({}); // Fixed typo: 'prodcut' to 'product'
+    const [loading, setLoading] = useState(true);
     const [selectedImage, setSelectedImage] = useState(product?.images?.[0]); // Default to the first image
 
     const handleThumbnailClick = (image) => {
         setSelectedImage(image);
     };
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                const response = await findProductById(id); // Fetch product by ID
+                if (response?.status === 200) {
+                    setProduct(response.data?.data); // Set product state
+                    setSelectedImage(response.data?.images?.[0]); // Set default selected image
+                    setLoading(false); // Set loading to false
+                }
+            } catch (error) {
+                console.error("Error fetching product:", error);
+                setLoading(false); // Set loading to false even if there's an error
+            }
+        };
+
+        fetchProduct();
+    }, [id]); // Fetch when the component mounts or when 'id' changes
+
+    if (loading) {
+        return <div>Loading...</div>; // Loading state
+    }
 
     return (
         <div className="p-6 bg-white mt-3 rounded-lg shadow-md">
@@ -67,7 +96,7 @@ const ProductDetails = ({ product }) => {
                         <p className="text-sm text-gray-600 mb-2"><strong className="text-black uppercase mr-1">Color:</strong> {product?.colors?.[0]?.name}</p>
                         <div className="flex space-x-4">
                             {product?.colors?.map((color, index) => (
-                                <label key={index} className="flex flex-col items-center">
+                                <label onClick={() => handleThumbnailClick(color?.image)} key={index} className="flex flex-col items-center">
                                     <input type="radio" name="color" value={color?.name} className="sr-only" defaultChecked={index === 0} />
                                     <img src={color?.image} alt={color?.name} className="w-16 h-16 rounded-lg mb-1" />
                                     <span className="text-xs">{color?.name}</span>
@@ -104,7 +133,7 @@ const ProductDetails = ({ product }) => {
                         </div>
                     </div>
                     <p className="text-sm text-gray-600 mb-1"><strong className="text-black uppercase mr-1">SKU:</strong> {product?.sku}</p>
-                    <p className="text-sm text-gray-600 mb-1"><strong className="text-black uppercase mr-1">Category:</strong> {product?.category}</p>
+                    <p className="text-sm text-gray-600 mb-1"><strong className="text-black uppercase mr-1">Category:</strong> {product?.category?.name}</p>
                     <p className="text-sm text-gray-600 mb-4"><strong className="text-black uppercase mr-1">Brand:</strong> <span className="text-green-600">{product?.brand}</span></p>
                     <div className="flex space-x-4">
                         {[FaTwitter, FaFacebookF, FaInstagram, FaYoutube, FaDribbble].map((Icon, index) => (

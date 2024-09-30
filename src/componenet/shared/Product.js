@@ -32,7 +32,7 @@ const Product = ({ product }) => {
                         Add to cart
                     </button>
                     {/* Navigation button to product details */}
-                    <Link to={`/products/${product?.id}`}> {/* Optional chaining */}
+                    <Link to={`/products/${product?._id}`}> {/* Optional chaining */}
                         <button
                             className="w-full bg-gray-300 text-gray-800 font-semibold py-2 rounded-lg transition-colors hover:bg-gray-400"
                         >

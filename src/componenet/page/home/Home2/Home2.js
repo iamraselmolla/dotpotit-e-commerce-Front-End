@@ -4,8 +4,6 @@ import FeaturedBrands from '../FeaturesBand';
 import TopCategories from '../TopCategories';
 import DealsOfTheDay from '../DealsofTheDay';
 import Save from '../Save';
-import dummyProducts from "../../../shared/productData"
-import Product from '../../../shared/Product';
 function Home2() {
 
     return (
@@ -15,9 +13,9 @@ function Home2() {
                 <FeaturedBrands />
                 <TopCategories />
             </div>
-            <div className="container grid grid-cols-1 md:grid-cols-3 gap-2 lg:grid-cols-5 mx-auto p-4">
+            {/* <div className="container grid grid-cols-1 md:grid-cols-3 gap-2 lg:grid-cols-5 mx-auto p-4">
                 {dummyProducts.map(prodcut => <Product key={prodcut.id} product={prodcut} />)}
-            </div>
+            </div> */}
             <DealsOfTheDay />
             <Save />
         </div>
