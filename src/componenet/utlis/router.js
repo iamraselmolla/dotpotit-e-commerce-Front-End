@@ -6,9 +6,9 @@ import Layout from "./Layout";
 import { createBrowserRouter } from "react-router-dom";
 import NotFound from "../page/not-found/NotFound";
 import Products from "../page/products/Products";
-import AddProduct from "../page/add-product/AddProduct";
 import VerifyEmail from "../page/verify-email/VerifyEmail";
 import ProductDetails from "../page/products/ProductDetails";
+import AddProduct from "../page/products/AddProduct";
 
 const router = createBrowserRouter([
     {
