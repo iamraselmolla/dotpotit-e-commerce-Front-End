@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FaStar, FaPlus, FaEye, FaShoppingCart, FaHeart, FaTwitter, FaFacebookF, FaInstagram, FaYoutube, FaDribbble, FaCheckCircle, FaMinus } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
-import { findProductById } from '../../services/user_services';
+import { findProductById, increaseCountOfProductView } from '../../services/user_services';
 import { AuthContext } from '../../authcontext/AuthProvider';
 
 const ProductDetails = () => {
@@ -20,11 +20,13 @@ const ProductDetails = () => {
                     setProduct(response.data?.data);
                     setSelectedImage(response.data?.data?.images?.[0] || ""); // Default to the first image
                     setLoading(false);
+
                 }
             } catch (error) {
                 console.error("Error fetching product:", error);
                 setLoading(false);
             }
+            await increaseCountOfProductView(id);
         };
 
         fetchProduct();

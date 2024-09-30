@@ -10,7 +10,8 @@ const BASE_URL = {
 
     // createProduct: "/product/create-product",
     getAllProducts: "/product/get-products",
-    findProductById: "/product//get-product",
+    findProductById: "/product/get-product",
+    increaseCountOfProductView: "/product/increment-view-count",
 
 };
 
@@ -40,4 +41,8 @@ export function getAllProducts() {
 
 export function findProductById(id) {
     return http.get(`${BASE_URL.findProductById}/${id}`);
+}
+
+export function increaseCountOfProductView(id) {
+    return http.put(`${BASE_URL.increaseCountOfProductView}/${id}`);
 }
