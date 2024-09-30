@@ -10,7 +10,7 @@ const Cart = () => {
             <h1 className="text-2xl font-bold mb-4">Your Shopping Cart</h1>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {/* Cart Items */}
-                <div className="md:col-span-2">
+                <div className="md:col-span-2 "> {/* Scrollable container */}
                     {cartItems.length > 0 ? (
                         cartItems.map((item) => (
                             <div key={item._id} className="flex items-center justify-between p-4 bg-white rounded-lg shadow-md mb-4">
@@ -55,7 +55,7 @@ const Cart = () => {
                 </div>
 
                 {/* Cart Summary */}
-                <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+                <div className="bg-gray-100 p-4 rounded-lg shadow-md sticky top-4 h-fit"> {/* Make summary sticky */}
                     <h2 className="text-xl font-semibold mb-4">Cart Summary</h2>
                     <div className="flex justify-between mb-2">
                         <span>Total Items:</span>
