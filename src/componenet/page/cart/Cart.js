@@ -3,16 +3,7 @@ import { AuthContext } from '../../authcontext/AuthProvider';
 import { FaPlus, FaMinus, FaTrash } from 'react-icons/fa'; // Icons for increment, decrement, and remove
 
 const Cart = () => {
-    const { cartItems, addToCart, removeFromCart } = useContext(AuthContext);
-
-    // Function to decrease quantity of a product
-    const decreaseQuantity = (product) => {
-        if (product.quantity > 1) {
-            addToCart({ ...product, quantity: product.quantity - 1 }); // Update quantity using addToCart
-        } else {
-            removeFromCart(product.id); // If quantity reaches 0, remove the item
-        }
-    };
+    const { cartItems, increaseQuantity, decreaseQuantity, removeFromCart } = useContext(AuthContext);
 
     return (
         <div className="container max-w-7xl mx-auto p-4">
@@ -20,7 +11,7 @@ const Cart = () => {
                 {/* Cart Items (66% width) */}
                 <div className="md:col-span-2 space-y-4">
                     {cartItems.length > 0 ? cartItems.map((item) => (
-                        <div key={item.id} className="flex items-center justify-between p-4 bg-white rounded-lg shadow-md">
+                        <div key={item._id} className="flex items-center justify-between p-4 bg-white rounded-lg shadow-md">
                             {/* Product Image */}
                             <img src={item.images[0]} alt={item.name} className="w-24 h-24 object-cover rounded" />
 
@@ -35,13 +26,13 @@ const Cart = () => {
                             {/* Quantity Counter */}
                             <div className="flex items-center">
                                 <button
-                                    onClick={() => decreaseQuantity(item)}
+                                    onClick={() => decreaseQuantity(item._id)}
                                     className="p-2 bg-gray-200 hover:bg-gray-300 rounded-full">
                                     <FaMinus />
                                 </button>
                                 <span className="mx-2 text-lg">{item.quantity}</span>
                                 <button
-                                    onClick={() => addToCart(item)}
+                                    onClick={() => increaseQuantity(item._id)}
                                     className="p-2 bg-gray-200 hover:bg-gray-300 rounded-full">
                                     <FaPlus />
                                 </button>
@@ -49,7 +40,7 @@ const Cart = () => {
 
                             {/* Remove Button */}
                             <button
-                                onClick={() => removeFromCart(item.id)}
+                                onClick={() => removeFromCart(item._id)}
                                 className="p-2 ml-4 bg-red-500 hover:bg-red-600 text-white rounded-full"
                                 title="Remove item">
                                 <FaTrash />

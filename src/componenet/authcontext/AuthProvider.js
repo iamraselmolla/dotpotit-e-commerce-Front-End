@@ -33,6 +33,7 @@ const AuthProvider = ({ children }) => {
 
         setInitialLoading(false);
         updateWishlistNumber();
+
         // Load cart items from localStorage
         const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
         setCartItems(storedCartItems);
@@ -56,30 +57,43 @@ const AuthProvider = ({ children }) => {
 
     const addToCart = (product) => {
         const existingCartItems = [...cartItems];
-        const existingProductIndex = existingCartItems.findIndex(item => item?._id === product?._id);
+        const existingProductIndex = existingCartItems.findIndex(item => item._id === product._id);
 
         if (existingProductIndex < 0) {
-            existingCartItems.push({ ...product, quantity: 1 });
+            existingCartItems.push({ ...product, quantity: 1 }); // Add new product
         } else {
             existingCartItems[existingProductIndex].quantity += 1; // Increase quantity
         }
 
-        setCartItems(existingCartItems);
-        setCartTotalPrice(existingCartItems.reduce((total, item) => total + (item.price.min * item.quantity), 0)); // Update total price
-        setCartItemCount(existingCartItems.reduce((count, item) => count + item.quantity, 0)); // Update total item count
+        updateCartState(existingCartItems);
+    };
 
-        // Store cart items in localStorage
-        localStorage.setItem('cartItems', JSON.stringify(existingCartItems));
+    const increaseQuantity = (productId) => {
+        const updatedCartItems = cartItems.map(item =>
+            item._id === productId ? { ...item, quantity: item.quantity + 1 } : item
+        );
+        updateCartState(updatedCartItems);
+    };
+
+    const decreaseQuantity = (productId) => {
+        const updatedCartItems = cartItems.map(item =>
+            item._id === productId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+        ).filter(item => item.quantity > 0); // Optionally remove item if quantity is 0
+        updateCartState(updatedCartItems);
     };
 
     const removeFromCart = (productId) => {
-        const updatedCartItems = cartItems.filter(item => item.id !== productId);
-        setCartItems(updatedCartItems);
-        setCartTotalPrice(updatedCartItems.reduce((total, item) => total + (item.price.min * item.quantity), 0)); // Update total price
-        setCartItemCount(updatedCartItems.reduce((count, item) => count + item.quantity, 0)); // Update total item count
+        const updatedCartItems = cartItems.filter(item => item._id !== productId);
+        updateCartState(updatedCartItems);
+    };
 
-        // Store updated cart items in localStorage
-        localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+    const updateCartState = (updatedItems) => {
+        setCartItems(updatedItems);
+        setCartTotalPrice(updatedItems.reduce((total, item) => total + (item.price.min * item.quantity), 0)); // Update total price
+        setCartItemCount(updatedItems.reduce((count, item) => count + item.quantity, 0)); // Update total item count
+
+        // Store cart items in localStorage
+        localStorage.setItem('cartItems', JSON.stringify(updatedItems));
     };
 
     const logout = () => {
@@ -104,11 +118,13 @@ const AuthProvider = ({ children }) => {
         wishlistNumber,
         setWishlistNumber,
         updateWishlistNumber,
-        addToCart, // Add the addToCart method
-        removeFromCart, // Add the removeFromCart method
-        cartItems, // Expose cart items
-        cartTotalPrice, // Expose total price
-        cartItemCount, // Expose cart item count
+        addToCart,
+        increaseQuantity,
+        decreaseQuantity,
+        removeFromCart,
+        cartItems,
+        cartTotalPrice,
+        cartItemCount,
         logout,
     };
 
