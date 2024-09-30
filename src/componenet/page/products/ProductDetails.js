@@ -3,39 +3,41 @@ import { FaStar, FaPlus, FaEye, FaShoppingCart, FaHeart, FaTwitter, FaFacebookF,
 import { useParams } from 'react-router-dom';
 import { findProductById } from '../../services/user_services';
 
-
-
 const ProductDetails = () => {
     const { id } = useParams(); // Get the id from the URL parameters
     const [quantity, setQuantity] = useState(1);
-    const [product, setProduct] = useState({}); // Fixed typo: 'prodcut' to 'product'
+    const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(true);
-    const [selectedImage, setSelectedImage] = useState(product?.images?.[0]); // Default to the first image
+    const [selectedImage, setSelectedImage] = useState(""); // Initialize as an empty string
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                const response = await findProductById(id);
+                if (response?.status === 200) {
+                    setProduct(response.data?.data);
+                    setSelectedImage(response.data?.data?.images?.[0] || ""); // Default to the first image
+                    setLoading(false);
+                }
+            } catch (error) {
+                console.error("Error fetching product:", error);
+                setLoading(false);
+            }
+        };
+
+        fetchProduct();
+    }, [id]);
 
     const handleThumbnailClick = (image) => {
         setSelectedImage(image);
     };
 
-    useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                const response = await findProductById(id); // Fetch product by ID
-                if (response?.status === 200) {
-                    setProduct(response.data?.data); // Set product state
-                    setSelectedImage(response.data?.images?.[0]); // Set default selected image
-                    setLoading(false); // Set loading to false
-                }
-            } catch (error) {
-                console.error("Error fetching product:", error);
-                setLoading(false); // Set loading to false even if there's an error
-            }
-        };
-
-        fetchProduct();
-    }, [id]); // Fetch when the component mounts or when 'id' changes
+    const handleColorChange = (color) => {
+        setSelectedImage(color?.image); // Change the main image to the selected color's image
+    };
 
     if (loading) {
-        return <div>Loading...</div>; // Loading state
+        return <div>Loading...</div>;
     }
 
     return (
@@ -55,7 +57,7 @@ const ProductDetails = () => {
                                 <button className="bg-white p-2 rounded-full shadow"><FaHeart /></button>
                             </div>
                         </div>
-                        <img src={selectedImage} alt="Product" className="w-full rounded-lg" />
+                        <img src={selectedImage} alt="Product" className="w-full h-auto rounded-lg" /> {/* Updated image */}
                     </div>
                     <div className="flex mt-4 space-x-4">
                         {product?.images?.map((image, index) => (
@@ -96,7 +98,7 @@ const ProductDetails = () => {
                         <p className="text-sm text-gray-600 mb-2"><strong className="text-black uppercase mr-1">Color:</strong> {product?.colors?.[0]?.name}</p>
                         <div className="flex space-x-4">
                             {product?.colors?.map((color, index) => (
-                                <label onClick={() => handleThumbnailClick(color?.image)} key={index} className="flex flex-col items-center">
+                                <label key={index} onClick={() => handleColorChange(color)} className="flex flex-col items-center cursor-pointer">
                                     <input type="radio" name="color" value={color?.name} className="sr-only" defaultChecked={index === 0} />
                                     <img src={color?.image} alt={color?.name} className="w-16 h-16 rounded-lg mb-1" />
                                     <span className="text-xs">{color?.name}</span>
