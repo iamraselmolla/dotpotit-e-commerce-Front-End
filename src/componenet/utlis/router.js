@@ -11,6 +11,7 @@ import ProductDetails from "../page/products/ProductDetails";
 import AddProduct from "../page/products/AddProduct";
 import CategoryForm from "../shared/dashboard/admin/add-category/AddCategory";
 import WishLists from "../page/wishlist/WishLists";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/add-category",
-                element: <CategoryForm />
+                element: <PrivateRoute><CategoryForm /></PrivateRoute>
             },
             {
                 path: "/products",
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/add-product",
-                element: <AddProduct />
+                element: <PrivateRoute> <AddProduct /></PrivateRoute>
             },
             {
                 path: "/login",
@@ -47,7 +48,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/wishlist",
-                element: <WishLists />,
+                element: <PrivateRoute><WishLists /></PrivateRoute>,
             },
             {
                 path: "/register",
