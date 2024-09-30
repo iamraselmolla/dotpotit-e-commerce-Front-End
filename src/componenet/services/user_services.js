@@ -12,5 +12,7 @@ export function createUser(data) {
 }
 
 export function userLogin(data) {
-    return http.post(BASE_URL.userLogin, data);
+    return http.post(BASE_URL.userLogin, data, {
+        withCredentials: true, // Ensures cookies (like JWT tokens) are included in the request
+    });
 }

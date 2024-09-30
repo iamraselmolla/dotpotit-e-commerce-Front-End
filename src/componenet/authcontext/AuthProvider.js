@@ -59,7 +59,7 @@ const AuthProvider = ({ children }) => {
     if (initialLoading) {
         return <>Loading...</>; // You can replace this with a loading spinner
     }
-
+    console.log(isAuthenticated, jwtToken)
     return (
         <AuthContext.Provider value={authInfo}>
             {children}
