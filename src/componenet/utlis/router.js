@@ -9,10 +9,12 @@ import Products from "../page/products/Products";
 import VerifyEmail from "../page/verify-email/VerifyEmail";
 import ProductDetails from "../page/products/ProductDetails";
 import AddProduct from "../page/products/AddProduct";
-import CategoryForm from "../shared/dashboard/admin/add-category/AddCategory";
 import WishLists from "../page/wishlist/WishLists";
 import PrivateRoute from "./PrivateRoute";
 import Cart from "../page/cart/Cart";
+import Dashboard from "../page/dashboard/Dashboard";
+import PurchaseHistory from "../page/dashboard/user/PurchaseHistory";
+import CategoryForm from "../page/dashboard/admin/add-category/AddCategory";
 
 const router = createBrowserRouter([
     {
@@ -58,6 +60,20 @@ const router = createBrowserRouter([
             {
                 path: "/register",
                 element: <Register />,
+            },
+            {
+                path: "/dashboard",
+                element: <Dashboard />,
+                children: [
+                    {
+                        path: "",  // Default child route for /dashboard
+                        element: <Dashboard />,  // This can be your default component if needed
+                    },
+                    {
+                        path: "history",  // Relative path
+                        element: <PurchaseHistory />,
+                    },
+                ]
             },
             {
                 path: '/verify/:token',
