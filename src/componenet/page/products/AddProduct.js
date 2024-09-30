@@ -9,6 +9,7 @@ const AddProduct = () => {
     const [error, setError] = useState(null);
     const [categories, setCategories] = useState([]);
 
+
     const initialValues = {
         name: '',
         price: { min: '', max: '' },
@@ -58,7 +59,7 @@ const AddProduct = () => {
         setError(null);
         try {
             // Simulating API call
-            await new Promise((resolve) => setTimeout(resolve, 2000));
+
             console.log('Form submitted with values:', values);
         } catch (err) {
             setError('An error occurred while uploading the product. Please try again.');
@@ -196,7 +197,9 @@ const AddProduct = () => {
                             <Field as="select" name="category" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 <option value="">Select a category</option>
                                 {categories.map((category) => (
-                                    <option key={category.id} value={category.id}>{category.name}</option>
+                                    <option key={category.id} value={category.id}>
+                                        {category.name}
+                                    </option>
                                 ))}
                             </Field>
                             <ErrorMessage name="category" component="div" className="text-red-500 text-sm mt-1" />

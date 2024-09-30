@@ -8,14 +8,16 @@ const Product = ({ product }) => {
         <div className="relative bg-white rounded-lg shadow-lg transition-transform transform hover:scale-105">
             <figure className="px-6 pt-6">
                 <img
-                    src={product.image}
-                    alt={product.name}
+                    src={product?.images[0]} // Optional chaining
+                    alt={product?.name} // Optional chaining
                     className="rounded-lg object-cover h-48 w-full"
                 />
             </figure>
             <div className="p-6">
-                <h2 className="text-xl font-semibold text-gray-800">{product.name}</h2>
-                <p className="text-xl font-bold text-primary mt-2">${product.price.toFixed(2)}</p>
+                <h2 className="text-xl font-semibold text-gray-800">{product?.name}</h2> {/* Optional chaining */}
+                <p className="text-xl font-bold text-primary mt-2">
+                    ${product?.price?.min.toFixed(2)} - {product?.price?.max.toFixed(2)}
+                </p>
                 <div className="flex items-center space-x-4 my-2">
                     <span className="text-sm text-green-600 bg-green-100 rounded-full px-2 py-1">FREE SHIPPING</span>
                     <span className="text-sm text-blue-600 bg-blue-100 rounded-full px-2 py-1">FREE GIFT</span>
@@ -30,7 +32,7 @@ const Product = ({ product }) => {
                         Add to cart
                     </button>
                     {/* Navigation button to product details */}
-                    <Link to={`/products/${product.id}`}>
+                    <Link to={`/products/${product?.id}`}> {/* Optional chaining */}
                         <button
                             className="w-full bg-gray-300 text-gray-800 font-semibold py-2 rounded-lg transition-colors hover:bg-gray-400"
                         >

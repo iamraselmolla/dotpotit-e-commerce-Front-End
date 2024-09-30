@@ -8,6 +8,9 @@ const BASE_URL = {
     createCategory: "/category/create-category",
     getAllCategories: "/category/get-categories",
 
+    // createProduct: "/product/create-product",
+    getAllProducts: "/product/get-products",
+
 };
 
 // User API
@@ -28,4 +31,8 @@ export function createCategory(data) {
 
 export function getAllCategories() {
     return http.get(BASE_URL.getAllCategories);
+}
+
+export function getAllProducts() {
+    return http.get(BASE_URL.getAllProducts);
 }
