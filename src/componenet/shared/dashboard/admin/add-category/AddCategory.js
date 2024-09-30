@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { createCategory } from '../../../../services/user_services';
+import toast from 'react-hot-toast';
 
 const CategoryForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [successMessage, setSuccessMessage] = useState(null);
 
     const initialValues = {
         name: '',
@@ -23,15 +24,13 @@ const CategoryForm = () => {
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
         setIsLoading(true);
         setError(null);
-        setSuccessMessage(null);
-
         try {
-            // Simulate API call to create category
-            await new Promise((resolve) => setTimeout(resolve, 2000));
+            const result = await createCategory(values);
+            if (result?.status === 200) {
 
-            console.log('Category Created with values:', values);
-            setSuccessMessage('Category created successfully!');
-            resetForm();  // Reset form after submission
+                toast.success('Category created successfully!');
+                resetForm();  // Reset form after submission
+            }
         } catch (err) {
             setError('An error occurred while creating the category. Please try again.');
         } finally {
@@ -44,7 +43,6 @@ const CategoryForm = () => {
         <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
             <h2 className="text-2xl font-bold mb-6 text-center">Create New Category</h2>
             {error && <div className="text-red-500 text-center mb-4">{error}</div>}
-            {successMessage && <div className="text-green-500 text-center mb-4">{successMessage}</div>}
 
             <Formik
                 initialValues={initialValues}
