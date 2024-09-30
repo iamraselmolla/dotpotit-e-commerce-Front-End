@@ -9,6 +9,7 @@ import Products from "../page/products/Products";
 import VerifyEmail from "../page/verify-email/VerifyEmail";
 import ProductDetails from "../page/products/ProductDetails";
 import AddProduct from "../page/products/AddProduct";
+import CategoryForm from "../shared/dashboard/admin/add-category/AddCategory";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
             {
                 path: "/home",
                 element: <Home />
+            },
+            {
+                path: "/add-category",
+                element: <CategoryForm />
             },
             {
                 path: "/products",
