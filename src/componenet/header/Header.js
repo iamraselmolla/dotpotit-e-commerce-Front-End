@@ -79,14 +79,15 @@ const Header = () => {
                         </div>
                     </div>
 
-                    <div className="flex items-center">
-                        <FaShoppingCart className="w-6 h-6 mr-2" />
-                        <div className="text-xs">
-                            <div>CART</div>
-                            <div className="font-semibold">${cartTotalPrice?.toFixed(2)}</div>
-                        </div>
-                        <span className="ml-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">{cartItemCount}</span>
-                    </div>
+                    <Link to={"/cart"}>
+                        <div className="flex items-center">
+                            <FaShoppingCart className="w-6 h-6 mr-2" />
+                            <div className="text-xs">
+                                <div>CART</div>
+                                <div className="font-semibold">${cartTotalPrice?.toFixed(2)}</div>
+                            </div>
+                            <span className="ml-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">{cartItemCount}</span>
+                        </div></Link>
                 </div>
             </nav>
         </header>

@@ -56,7 +56,7 @@ const AuthProvider = ({ children }) => {
 
     const addToCart = (product) => {
         const existingCartItems = [...cartItems];
-        const existingProductIndex = existingCartItems.findIndex(item => item.id === product.id);
+        const existingProductIndex = existingCartItems.findIndex(item => item?._id === product?._id);
 
         if (existingProductIndex < 0) {
             existingCartItems.push({ ...product, quantity: 1 });

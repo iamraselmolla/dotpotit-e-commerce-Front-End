@@ -12,6 +12,7 @@ import AddProduct from "../page/products/AddProduct";
 import CategoryForm from "../shared/dashboard/admin/add-category/AddCategory";
 import WishLists from "../page/wishlist/WishLists";
 import PrivateRoute from "./PrivateRoute";
+import Cart from "../page/cart/Cart";
 
 const router = createBrowserRouter([
     {
@@ -52,7 +53,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/cart",
-                element: <PrivateRoute><WishLists /></PrivateRoute>,
+                element: <PrivateRoute><Cart /></PrivateRoute>,
             },
             {
                 path: "/register",

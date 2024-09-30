@@ -1,6 +1,5 @@
 import React from 'react';
 import { FaTwitter, FaFacebookF, FaInstagram, FaYoutube, FaPinterest } from 'react-icons/fa';
-import { IoMdMail } from 'react-icons/io';
 import { BiDollar } from 'react-icons/bi';
 import { BsFillPhoneFill } from 'react-icons/bs';
 
