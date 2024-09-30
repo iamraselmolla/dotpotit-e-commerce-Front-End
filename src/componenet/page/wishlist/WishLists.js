@@ -10,11 +10,12 @@ const WishLists = () => {
     // Function to remove product from wishlist
     const removeFromWishlist = (productId) => {
         const storedWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-        const updatedWishlist = storedWishlist.filter(item => item.id?.toString() !== productId?.toString()); // Remove the product from wishlist
+        const updatedWishlist = storedWishlist.filter(item => item.id?.toString() !== productId?.toString());
 
         // Update the local storage and state
         localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
-        setWishlistNumber(updatedWishlist?.length);
+        setWishlist(updatedWishlist);  // Update the state to re-render the UI
+        setWishlistNumber(updatedWishlist.length);
 
         toast.success('Product removed from wishlist'); // Show a success message
     };
