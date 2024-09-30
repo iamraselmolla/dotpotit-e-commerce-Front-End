@@ -44,14 +44,15 @@ const Header = () => {
                 </div>
 
                 <div className="flex items-center space-x-4">
-                    <div className="relative">
-                        <FaHeart className="w-10 h-10 text-red-400" />
-                        {wishlistNumber > 0 && (
-                            <span className="absolute top-[-8px] right-[-6px] bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                                {wishlistNumber}
-                            </span>
-                        )}
-                    </div>
+                    <Link to="/wishlist">
+                        <div className="relative cursor-pointer">
+                            <FaHeart className="w-10 h-10 text-red-400" />
+                            {wishlistNumber > 0 && (
+                                <span className="absolute top-[-8px] right-[-6px] bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                                    {wishlistNumber}
+                                </span>
+                            )}
+                        </div></Link>
 
                     <div className="flex items-center">
                         <FaUserCircle className="w-6 h-6 mr-2" />

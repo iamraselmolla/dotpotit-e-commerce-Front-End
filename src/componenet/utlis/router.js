@@ -10,6 +10,7 @@ import VerifyEmail from "../page/verify-email/VerifyEmail";
 import ProductDetails from "../page/products/ProductDetails";
 import AddProduct from "../page/products/AddProduct";
 import CategoryForm from "../shared/dashboard/admin/add-category/AddCategory";
+import WishLists from "../page/wishlist/WishLists";
 
 const router = createBrowserRouter([
     {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
             {
                 path: "/login",
                 element: <Login />,
+            },
+            {
+                path: "/wishlist",
+                element: <WishLists />,
             },
             {
                 path: "/register",
