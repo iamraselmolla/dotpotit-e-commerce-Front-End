@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { FaPhoneAlt, FaHeart, FaUserCircle, FaShoppingCart } from 'react-icons/fa';
+import { FaHeart, FaUserCircle, FaShoppingCart } from 'react-icons/fa';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import { AuthContext } from '../authcontext/AuthProvider';
 
 const Header = () => {
-    const { user, isAuthenticated, logout } = useContext(AuthContext); // Consume AuthContext
+    const { user, isAuthenticated, logout, wishlistNumber } = useContext(AuthContext); // Consume AuthContext
+
 
     return (
         <header className="bg-white shadow-sm">
@@ -43,7 +44,14 @@ const Header = () => {
                 </div>
 
                 <div className="flex items-center space-x-4">
-                    <FaHeart className="w-6 h-6" />
+                    <div className="relative">
+                        <FaHeart className="w-10 h-10 text-red-400" />
+                        {wishlistNumber > 0 && (
+                            <span className="absolute top-[-8px] right-[-6px] bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                                {wishlistNumber}
+                            </span>
+                        )}
+                    </div>
 
                     <div className="flex items-center">
                         <FaUserCircle className="w-6 h-6 mr-2" />

@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BiHeart } from 'react-icons/bi';
 import { CgShoppingCart } from 'react-icons/cg';
 import toast from 'react-hot-toast';
 import { FaHeart } from 'react-icons/fa';
+import { AuthContext } from '../authcontext/AuthProvider';
 
 const Product = ({ product }) => {
     const [isInWishlist, setIsInWishlist] = useState(false);
+    const { wishlistNumber, setWishlistNumber } = useContext(AuthContext); // Use context to access wishlistNumber and setWishlistNumber
 
     // Function to add a product to the wishlist
     const addToWishlist = (productItem) => {
@@ -15,7 +17,6 @@ const Product = ({ product }) => {
 
         // Check if the product is already in the wishlist
         const existingProductIndex = existingWishlist.findIndex(item => item?._id?.toString() === productItem?._id?.toString());
-        console.log(existingProductIndex)
 
         if (existingProductIndex < 0) {
             // If not, add the product with the required details
@@ -30,11 +31,16 @@ const Product = ({ product }) => {
             // Update the local storage with the new wishlist
             localStorage.setItem('wishlist', JSON.stringify(existingWishlist));
             toast.success('Product added to wishlist');
-            setIsInWishlist(true); // Update state to reflect that the product is in the wishlist
+
+            // Update the wishlist state in the component and the global context
+            setIsInWishlist(true); // Update local state to reflect that the product is in the wishlist
+            setWishlistNumber(existingWishlist.length); // Update the global wishlist count
+        } else {
+            toast.error('Product is already in the wishlist');
         }
     };
 
-    // Check if product is already in wishlist on component mount
+    // Check if the product is already in the wishlist on component mount
     useEffect(() => {
         const existingWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
         const isProductInWishlist = existingWishlist?.some(item => item?.id?.toString() === product?._id?.toString());
@@ -79,7 +85,6 @@ const Product = ({ product }) => {
                 </div>
             </div>
             <button
-
                 className="absolute right-3 top-3 p-2 rounded-full bg-white shadow hover:bg-gray-100 transition"
             >
                 {isInWishlist ? (
