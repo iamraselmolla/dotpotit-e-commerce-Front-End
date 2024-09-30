@@ -48,7 +48,7 @@ const Product = ({ product }) => {
     }, [product]);
 
     return (
-        <div className="relative bg-white rounded-lg shadow-lg transition-transform transform hover:scale-101">
+        <div className="relative bg-white rounded-lg shadow-lg duration-700 transition-transform transform hover:scale-105">
             <figure className="px-6 pt-6">
                 <img
                     src={product?.images[0]} // Optional chaining
