@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import Loader from '../../shared/Loader';
 import { userLogin } from '../../services/user_services';
+import { AuthContext } from '../../authcontext/AuthProvider'; // Import AuthContext
 
 const Login = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+
+    // Consume AuthContext to get setters for user state
+    const { setUser, setIsAuthenticated } = useContext(AuthContext);
 
     // Validation schema
     const validationSchema = Yup.object({
@@ -22,26 +25,40 @@ const Login = () => {
     });
 
     const handleLogin = async (values) => {
-        console.log(values)
-        setLoading(true);
+        setLoading(true); // Start loading state
         try {
             const response = await userLogin(values);
-            if (response.status === 200) {
-                toast.success(response.data.message);
-                navigate('/');
-            }
-            // Save token to localStorage or handle cookie setting
-            // localStorage.setItem('token', response.data.token);
 
+            // Check if response status is 200
+            if (response?.status === 200) {
+                // Success case
+                toast.success(response?.data?.message);
+
+                // Update AuthContext to reflect the logged-in user
+                setUser(response?.data?.data); // Assuming response contains user info
+                setIsAuthenticated(true); // Set isAuthenticated to true
+
+                // Navigate to the homepage or any other protected route
+                navigate('/');
+            } else {
+                // If response is not 200, treat it as an error
+                throw new Error(response?.data?.message || 'Login failed!');
+            }
         } catch (error) {
-            toast.error(error.response?.data?.message || 'Login failed!');
+            // Handle any error from the API or network issues
+            if (error?.response?.status !== 200) {
+                const errorMessage = error?.response?.data?.message || 'Login failed!';
+                toast.error(errorMessage);
+            }
         } finally {
-            setLoading(false);
+            setLoading(false); // Always turn off loading state
         }
     };
 
+
     return (
         <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+
             {loading && <Loader />}
             <div className="container mx-auto max-w-5xl bg-white shadow-md rounded-lg overflow-hidden flex flex-col md:flex-row">
                 {/* Left Section with Image */}

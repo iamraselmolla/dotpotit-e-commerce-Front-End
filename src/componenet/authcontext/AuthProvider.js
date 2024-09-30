@@ -36,8 +36,9 @@ const AuthProvider = ({ children }) => {
     }
 
     function deleteCookie(name) {
-        document.cookie = name + "=; Max-Age=-99999999; path=/"; // Added path to ensure the cookie is deleted from the correct scope
+        document.cookie = `${name}=; Max-Age=0; path=/; domain=${window.location.hostname}`;
     }
+
 
     // Logout function to clear cookies and reset state
     const logout = () => {
@@ -53,6 +54,8 @@ const AuthProvider = ({ children }) => {
         isAuthenticated,
         jwtToken,
         setJwtToken,
+        setIsAuthenticated,
+        setUser,
         logout, // Pass the logout function to consumers
     };
 

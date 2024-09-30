@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaPhoneAlt, FaHeart, FaUserCircle, FaShoppingCart } from 'react-icons/fa';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { AuthContext } from '../authcontext/AuthProvider';
 
 const Header = () => {
+    const { user, isAuthenticated, logout } = useContext(AuthContext); // Consume AuthContext
+
     return (
         <header className="bg-white shadow-sm">
             {/* Top bar */}
@@ -33,22 +36,39 @@ const Header = () => {
                 </div>
 
                 <div className="flex space-x-6">
-                    <Link to="/" className="hover:text-green-500">HOMES</Link>
+                    <Link to="/" className="hover:text-green-500">HOME</Link>
                     <Link to="/products" className="hover:text-green-500">PRODUCTS</Link>
                     <Link to="/add-product" className="hover:text-green-500">Add Product</Link>
                 </div>
 
                 <div className="flex items-center space-x-4">
                     <FaHeart className="w-6 h-6" />
+
                     <div className="flex items-center">
                         <FaUserCircle className="w-6 h-6 mr-2" />
                         <div className="text-xs">
-                            <div>WELCOME</div>
-                            <div className="font-semibold">
-                                <Link to="/login" className="hover:text-green-500">LOG IN</Link> / <Link to="/register" className="hover:text-green-500">REGISTER</Link>
-                            </div>
+                            {isAuthenticated ? (
+                                <>
+                                    <div>WELCOME, {user.name}</div> {/* Display the user's name */}
+                                    <button
+                                        onClick={logout}
+                                        className="font-semibold hover:text-green-500"
+                                    >
+                                        LOG OUT
+                                    </button> {/* Logout button */}
+                                </>
+                            ) : (
+                                <>
+                                    <div>WELCOME</div>
+                                    <div className="font-semibold">
+                                        <Link to="/login" className="hover:text-green-500">LOG IN</Link> /
+                                        <Link to="/register" className="hover:text-green-500">REGISTER</Link>
+                                    </div> {/* Log In / Register links */}
+                                </>
+                            )}
                         </div>
                     </div>
+
                     <div className="flex items-center">
                         <FaShoppingCart className="w-6 h-6 mr-2" />
                         <div className="text-xs">
