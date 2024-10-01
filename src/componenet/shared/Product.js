@@ -15,13 +15,7 @@ const Product = ({ product }) => {
         const existingProductIndex = existingWishlist.findIndex(item => item?.id?.toString() === productItem?._id?.toString());
 
         if (existingProductIndex < 0) {
-            const productToAdd = {
-                id: productItem._id,
-                name: productItem.name,
-                price: productItem.price.min,
-                image: productItem.images[0],
-            };
-            existingWishlist.push(productToAdd);
+            existingWishlist.push(productItem);
             localStorage.setItem('wishlist', JSON.stringify(existingWishlist));
             toast.success('Product added to wishlist');
             setIsInWishlist(true);
