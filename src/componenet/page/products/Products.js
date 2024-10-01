@@ -9,7 +9,8 @@ const Products = () => {
     const [loading, setLoading] = useState(true);
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('all');
-    const [filterType, setFilterType] = useState('all'); // 'all', 'best-selling', 'best-viewing'
+    const [filterType, setFilterType] = useState('all');
+    const [search, setSearch] = useState('');
 
     useEffect(() => {
         const fetchAllProducts = async () => {
@@ -25,6 +26,7 @@ const Products = () => {
                 setLoading(false);
             }
         };
+
         const fetchAllCategories = async () => {
             try {
                 const categoryResult = await getAllCategories();
@@ -35,32 +37,42 @@ const Products = () => {
                 console.log(err);
             }
         };
+
         fetchAllProducts();
         fetchAllCategories();
     }, []);
 
-    const handleFilter = (type) => {
-        setFilterType(type);
-        let updatedProducts = [...products];
+    const filterProducts = () => {
+        let filtered = [...products];
 
+        // Category Filter
         if (selectedCategory !== 'all') {
-            updatedProducts = updatedProducts.filter(
-                (product) => product.category._id === selectedCategory
-            );
+            filtered = filtered.filter(product => product.category?.toString() === selectedCategory);
         }
 
-        if (type === 'best-selling') {
-            updatedProducts = updatedProducts.sort((a, b) => b.salesCount - a.salesCount);
-        } else if (type === 'best-viewing') {
-            updatedProducts = updatedProducts.sort((a, b) => b.views - a.views);
+        // Best-Selling / Best-Viewing Filter
+        if (filterType === 'best-selling') {
+            filtered = filtered.sort((a, b) => b.salesCount - a.salesCount);
+        } else if (filterType === 'best-viewing') {
+            filtered = filtered.sort((a, b) => b.views - a.views);
         }
-        setFilteredProducts(updatedProducts);
+
+        // Search Filter
+        if (search) {
+            filtered = filtered.filter((product) => {
+                return Object.values(product).some((value) =>
+                    value?.toString().toLowerCase().includes(search.toLowerCase())
+                );
+            });
+        }
+
+        setFilteredProducts(filtered);
     };
 
-    const handleCategoryFilter = (categoryId) => {
-        setSelectedCategory(categoryId);
-        handleFilter(filterType); // Reapply the selected filter
-    };
+    // Apply filter when any filter criteria changes
+    useEffect(() => {
+        filterProducts();
+    }, [selectedCategory, filterType, search]);
 
     return (
         <div className="container mx-auto p-4">
@@ -69,19 +81,19 @@ const Products = () => {
                 <div>
                     <button
                         className={`btn ${filterType === 'all' ? 'btn-active' : ''}`}
-                        onClick={() => handleFilter('all')}
+                        onClick={() => setFilterType('all')}
                     >
                         All
                     </button>
                     <button
                         className={`btn ${filterType === 'best-selling' ? 'btn-active' : ''}`}
-                        onClick={() => handleFilter('best-selling')}
+                        onClick={() => setFilterType('best-selling')}
                     >
                         Best Selling
                     </button>
                     <button
                         className={`btn ${filterType === 'best-viewing' ? 'btn-active' : ''}`}
-                        onClick={() => handleFilter('best-viewing')}
+                        onClick={() => setFilterType('best-viewing')}
                     >
                         Best Viewing
                     </button>
@@ -89,16 +101,25 @@ const Products = () => {
                 {/* Category Dropdown */}
                 <select
                     className="select select-bordered"
-                    onChange={(e) => handleCategoryFilter(e.target.value)}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
                     value={selectedCategory}
                 >
                     <option value="all">All Categories</option>
-                    {categories.map((category) => (
+                    {categories?.map((category) => (
                         <option key={category._id} value={category._id}>
                             {category.name}
                         </option>
                     ))}
                 </select>
+
+                {/* Search Input */}
+                <input
+                    type="text"
+                    className="input input-bordered"
+                    placeholder="Search products..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
             </div>
 
             {/* Product Grid */}
@@ -107,8 +128,8 @@ const Products = () => {
                 {!loading && filteredProducts.length === 0 && (
                     <p>No products found for the selected filter.</p>
                 )}
-                {filteredProducts?.map((product) => (
-                    <Product key={product?._id} product={product} />
+                {filteredProducts.map((product) => (
+                    <Product key={product._id} product={product} />
                 ))}
             </div>
         </div>
