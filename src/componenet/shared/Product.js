@@ -1,46 +1,36 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BiHeart } from 'react-icons/bi';
-import { CgShoppingCart } from 'react-icons/cg';
+import { BiHeart, BiShoppingBag } from 'react-icons/bi';
+import { FaHeart, FaEye } from 'react-icons/fa';
+import { IoMdPricetag } from 'react-icons/io';
 import toast from 'react-hot-toast';
-import { FaHeart } from 'react-icons/fa';
 import { AuthContext } from '../authcontext/AuthProvider';
 
 const Product = ({ product }) => {
     const [isInWishlist, setIsInWishlist] = useState(false);
-    const { setWishlistNumber, addToCart } = useContext(AuthContext); // Use context to access wishlistNumber and setWishlistNumber
+    const { setWishlistNumber, addToCart } = useContext(AuthContext);
 
-    // Function to add a product to the wishlist
     const addToWishlist = (productItem) => {
-        // Get the existing wishlist from local storage, or initialize an empty array
         const existingWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-
-        // Check if the product is already in the wishlist
-        const existingProductIndex = existingWishlist.findIndex(item => item?._id?.toString() === productItem?._id?.toString());
+        const existingProductIndex = existingWishlist.findIndex(item => item?.id?.toString() === productItem?._id?.toString());
 
         if (existingProductIndex < 0) {
-            // If not, add the product with the required details
             const productToAdd = {
                 id: productItem._id,
                 name: productItem.name,
-                price: productItem.price,
+                price: productItem.price.min,
                 image: productItem.images[0],
             };
             existingWishlist.push(productToAdd);
-
-            // Update the local storage with the new wishlist
             localStorage.setItem('wishlist', JSON.stringify(existingWishlist));
             toast.success('Product added to wishlist');
-
-            // Update the wishlist state in the component and the global context
-            setIsInWishlist(true); // Update local state to reflect that the product is in the wishlist
-            setWishlistNumber(existingWishlist.length); // Update the global wishlist count
+            setIsInWishlist(true);
+            setWishlistNumber(existingWishlist.length);
         } else {
             toast.error('Product is already in the wishlist');
         }
     };
 
-    // Check if the product is already in the wishlist on component mount
     useEffect(() => {
         const existingWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
         const isProductInWishlist = existingWishlist?.some(item => item?.id?.toString() === product?._id?.toString());
@@ -48,51 +38,63 @@ const Product = ({ product }) => {
     }, [product]);
 
     return (
-        <div className="relative bg-white rounded-lg shadow-lg duration-700 transition-transform transform hover:scale-105">
-            <figure className="px-6 pt-6">
+        <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+            <figure className="relative">
                 <img
-                    src={product?.images[0]} // Optional chaining
-                    alt={product?.name} // Optional chaining
-                    className="rounded-lg object-cover h-48 w-full"
+                    src={product?.images[0]}
+                    alt={product?.name}
+                    className="rounded-xl object-cover h-64 w-full"
                 />
-            </figure>
-            <div className="p-6">
-                <h2 className="text-xl font-semibold text-gray-800">{product?.name}</h2> {/* Optional chaining */}
-                <p className="text-xl font-bold text-primary mt-2">
-                    ${product?.price?.min.toFixed(2)} - {product?.price?.max.toFixed(2)}
-                </p>
-                <div className="flex items-center space-x-4 my-2">
-                    <span className="text-sm text-green-600 bg-green-100 rounded-full px-2 py-1">FREE SHIPPING</span>
-                    <span className="text-sm text-blue-600 bg-blue-100 rounded-full px-2 py-1">FREE GIFT</span>
+                <div className="absolute top-4 left-4 flex flex-col gap-2">
+                    {product?.inStock ? (
+                        <span className="badge badge-success">In Stock</span>
+                    ) : (
+                        <span className="badge badge-error">Out of Stock</span>
+                    )}
+                    <span className="badge badge-primary flex items-center gap-1">
+                        <IoMdPricetag /> {product?.category?.name}
+                    </span>
                 </div>
-                <div className="badge badge-outline text-green-600 mt-2">In stock</div>
-
-                <div className="mt-4 flex flex-col space-y-2">
-                    <button onClick={() => addToCart(product)}
-                        className="flex items-center justify-center w-full bg-blue-600 text-white font-semibold py-2 rounded-lg transition-colors hover:bg-blue-700"
+                <button
+                    onClick={() => addToWishlist(product)}
+                    className="absolute top-4 right-4 btn btn-circle btn-sm bg-base-100"
+                >
+                    {isInWishlist ? (
+                        <FaHeart className="text-red-500" />
+                    ) : (
+                        <BiHeart className="text-gray-500" />
+                    )}
+                </button>
+            </figure>
+            <div className="card-body p-4">
+                <h2 className="card-title text-lg font-semibold">{product?.name}</h2>
+                <p className="text-sm text-gray-600">{product?.brand}</p>
+                <div className="flex justify-between items-center mt-2">
+                    <div className="text-lg font-bold text-primary">
+                        ${product?.price?.min.toFixed(2)} - ${product?.price?.max.toFixed(2)}
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                        <FaEye /> {product?.views}
+                        <BiShoppingBag /> {product?.salesCount}
+                    </div>
+                </div>
+                <div className="flex flex-wrap gap-2 mt-2">
+                    {product?.features?.slice(0, 3).map((feature, index) => (
+                        <span key={index} className="badge badge-outline badge-sm">{feature}</span>
+                    ))}
+                </div>
+                <div className="card-actions justify-between mt-4">
+                    <button
+                        onClick={() => addToCart(product)}
+                        className="btn btn-primary btn-sm flex-1 mr-2"
                     >
-                        <CgShoppingCart className="w-5 h-5 mr-2" />
                         Add to cart
                     </button>
-                    {/* Navigation button to product details */}
-                    <Link to={`/products/${product?._id}`}> {/* Optional chaining */}
-                        <button
-                            className="w-full bg-gray-300 text-gray-800 font-semibold py-2 rounded-lg transition-colors hover:bg-gray-400"
-                        >
-                            View Details
-                        </button>
+                    <Link to={`/products/${product?._id}`} className="btn btn-outline btn-sm flex-1">
+                        View Details
                     </Link>
                 </div>
             </div>
-            <button
-                className="absolute right-3 top-3 p-2 rounded-full bg-white shadow hover:bg-gray-100 transition"
-            >
-                {isInWishlist ? (
-                    <FaHeart className="w-6 h-6 text-red-600" /> // Red heart icon if in wishlist
-                ) : (
-                    <BiHeart onClick={() => addToWishlist(product)} className="w-6 h-6 text-gray-600" /> // Default heart icon
-                )}
-            </button>
         </div>
     );
 };

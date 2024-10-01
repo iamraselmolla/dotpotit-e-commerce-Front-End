@@ -61,7 +61,7 @@ const PurchaseHistory = () => {
             <h1 className="text-3xl font-bold mb-6 text-center">Your Purchase History</h1>
             <div className="space-y-8">
                 {history?.map((transaction) => (
-                    <div key={transaction?._id} className="card bg-base-100 shadow-xl">
+                    <div key={transaction?._id} className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300">
                         <div className="card-body">
                             <h2 className="card-title flex justify-between items-center">
                                 <span>Order #{transaction._id.slice(-6)}</span>
@@ -106,7 +106,9 @@ const PurchaseHistory = () => {
                                                             </div>
                                                         </div>
                                                         <div>
-                                                            <div className="font-bold">{product.productId.name}</div>
+                                                            <Link to={`/product/${product.productId._id}`} className="font-bold text-blue-600 hover:underline">
+                                                                {product.productId.name}
+                                                            </Link>
                                                         </div>
                                                     </div>
                                                 </td>

@@ -47,7 +47,7 @@ const Products = () => {
 
         // Category Filter
         if (selectedCategory !== 'all') {
-            filtered = filtered.filter(product => product.category?.toString() === selectedCategory);
+            filtered = filtered.filter(product => product.category?._id?.toString() === selectedCategory?.toString());
         }
 
         // Best-Selling / Best-Viewing Filter
