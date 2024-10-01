@@ -13,6 +13,9 @@ const BASE_URL = {
     findProductById: "/product/get-product",
     increaseCountOfProductView: "/product/increment-view-count",
 
+
+    makePayment: "/ssl-request"
+
 };
 
 // User API
@@ -45,4 +48,8 @@ export function findProductById(id) {
 
 export function increaseCountOfProductView(id) {
     return http.put(`${BASE_URL.increaseCountOfProductView}/${id}`);
+}
+
+export function makePayment(data) {
+    return http.post(BASE_URL.makePayment, data);
 }
