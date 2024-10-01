@@ -101,7 +101,7 @@ const PurchaseHistory = () => {
                                     <div key={product.productId._id} className="flex items-center space-x-4 border-b pb-4">
                                         <img src={product.image} alt={product.productId.name} className="w-20 h-20 object-cover rounded-md" />
                                         <div className="flex-grow">
-                                            <Link to={`/product/${product.productId._id}`} className="text-lg font-medium text-primary hover:underline">
+                                            <Link to={`/products/${product?.productId}`} className="text-lg font-medium text-primary hover:underline">
                                                 {product.name} {/* Display the product name */}
                                             </Link>
                                             <p className="text-sm text-gray-500">Quantity: {product.quantity}</p>
