@@ -108,7 +108,7 @@ const AuthProvider = ({ children }) => {
         setCartItems([]); // Clear cart items
         setCartTotalPrice(0); // Reset total price
         setCartItemCount(0); // Reset cart item count
-        localStorage.removeItem('cartItems'); // Clear cart items from localStorage
+        // localStorage.removeItem('cartItems'); // Clear cart items from localStorage
     };
 
     const authInfo = {

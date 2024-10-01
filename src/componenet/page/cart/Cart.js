@@ -89,11 +89,12 @@ const Cart = () => {
                             cus_address: '',
                             cus_city: '',
                             cus_postcode: '',
+                            cus_email: user?.email || '', // Set email from user context
                         }}
                         validationSchema={validationSchema}
                         onSubmit={handleCheckout}
                     >
-                        {({ isSubmitting }) => (
+                        {({ isSubmitting, values }) => (
                             <Form>
                                 <div className="mb-4">
                                     <label className="block text-gray-700">Name</label>
@@ -143,6 +144,19 @@ const Cart = () => {
                                         className="w-full px-4 py-2 border rounded-lg"
                                     />
                                     <ErrorMessage name="cus_postcode" component="div" className="text-red-500 text-sm" />
+                                </div>
+
+                                {/* Email Field */}
+                                <div className="mb-4">
+                                    <label className="block text-gray-700">Email</label>
+                                    <Field
+                                        name="email"
+                                        type="email"
+                                        value={user?.email} // Value comes from user context
+                                        className="w-full px-4 py-2 border rounded-lg bg-gray-200"
+                                        readOnly // Make it read-only
+                                    />
+                                    <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
                                 </div>
 
                                 <div className="flex justify-between mb-2">
