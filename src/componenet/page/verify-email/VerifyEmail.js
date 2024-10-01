@@ -13,7 +13,7 @@ const VerifyEmail = () => {
     useEffect(() => {
         const verifyEmail = async () => {
             try {
-                const response = await axios.post(`http://localhost:5000/api/v1/user/verify-user`, { token });
+                const response = await axios.post(`https://dot-commerce-server.vercel.app/api/v1/user/verify-user`, { token });
                 if (response.status === 200) {
                     toast.success(response.data.message);
                     setVerified(true);
