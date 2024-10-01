@@ -14,7 +14,7 @@ const BASE_URL = {
     increaseCountOfProductView: "/product/increment-view-count",
 
 
-    makePayment: "/ssl-request"
+    makePayment: "/ssl-request/init"
 
 };
 
@@ -51,5 +51,6 @@ export function increaseCountOfProductView(id) {
 }
 
 export function makePayment(data) {
+
     return http.post(BASE_URL.makePayment, data);
 }

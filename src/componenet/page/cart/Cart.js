@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../authcontext/AuthProvider';
 import { FaPlus, FaMinus, FaTrash } from 'react-icons/fa';
-import axios from 'axios'; // Import axios to make HTTP requests
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import { makePayment } from '../../services/user_services';
 
 const Cart = () => {
     const { cartItems, increaseQuantity, decreaseQuantity, removeFromCart } = useContext(AuthContext);
 
-    const handleCheckout = async () => {
+    const handleCheckout = async (values) => {
         const totalAmount = cartItems.reduce((total, item) => total + (item.price.min * item.quantity), 0);
         const cartData = cartItems.map(item => ({
             productId: item._id,
@@ -19,12 +20,11 @@ const Cart = () => {
             const response = await makePayment({
                 totalAmount,
                 cartData,
-                currency: 'BDT', // Pass any other necessary details
+                shippingData: values, // Include the shipping data from the form
+                currency: 'BDT',
             });
-
-            // Check if response has the payment gateway URL
-            if (response.data.url) {
-                window.location.href = response.data.url;  // Redirect to SSLCommerz payment page
+            if (response?.data?.url) {
+                window.location.href = response.data.url;
             } else {
                 alert("Payment initialization failed.");
             }
@@ -33,6 +33,14 @@ const Cart = () => {
         }
     };
 
+    // Formik validation schema
+    const validationSchema = Yup.object({
+        cus_name: Yup.string().required('Name is required'),
+        cus_phone: Yup.string().required('Mobile number is required').matches(/^[0-9]{11}$/, 'Invalid mobile number'),
+        cus_address: Yup.string().required('Address is required'),
+        cus_city: Yup.string().required('City is required'),
+        cus_postcode: Yup.string().required('Postcode is required'),
+    });
 
     return (
         <div className="container max-w-7xl mx-auto p-4">
@@ -69,19 +77,92 @@ const Cart = () => {
                         <p className="text-center text-gray-500">Your cart is empty.</p>
                     )}
                 </div>
+
+                {/* Shipping Form */}
                 <div className="bg-gray-100 p-4 rounded-lg shadow-md sticky top-4 h-fit">
-                    <h2 className="text-xl font-semibold mb-4">Cart Summary</h2>
-                    <div className="flex justify-between mb-2">
-                        <span>Total Items:</span>
-                        <span>{cartItems.reduce((count, item) => count + item.quantity, 0)}</span>
-                    </div>
-                    <div className="flex justify-between mb-4">
-                        <span>Total Price:</span>
-                        <span>${cartItems.reduce((total, item) => total + (item.price.min * item.quantity), 0).toFixed(2)}</span>
-                    </div>
-                    <button onClick={handleCheckout} className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                        Proceed to Checkout
-                    </button>
+                    <h2 className="text-xl font-semibold mb-4">Shipping Address</h2>
+                    <Formik
+                        initialValues={{
+                            cus_name: '',
+                            cus_phone: '',
+                            cus_address: '',
+                            cus_city: '',
+                            cus_postcode: '',
+                        }}
+                        validationSchema={validationSchema}
+                        onSubmit={handleCheckout}
+                    >
+                        {({ isSubmitting }) => (
+                            <Form>
+                                <div className="mb-4">
+                                    <label className="block text-gray-700">Name</label>
+                                    <Field
+                                        name="cus_name"
+                                        type="text"
+                                        className="w-full px-4 py-2 border rounded-lg"
+                                    />
+                                    <ErrorMessage name="cus_name" component="div" className="text-red-500 text-sm" />
+                                </div>
+
+                                <div className="mb-4">
+                                    <label className="block text-gray-700">Mobile Number</label>
+                                    <Field
+                                        name="cus_phone"
+                                        type="text"
+                                        className="w-full px-4 py-2 border rounded-lg"
+                                    />
+                                    <ErrorMessage name="cus_phone" component="div" className="text-red-500 text-sm" />
+                                </div>
+
+                                <div className="mb-4">
+                                    <label className="block text-gray-700">Address</label>
+                                    <Field
+                                        name="cus_address"
+                                        type="text"
+                                        className="w-full px-4 py-2 border rounded-lg"
+                                    />
+                                    <ErrorMessage name="cus_address" component="div" className="text-red-500 text-sm" />
+                                </div>
+
+                                <div className="mb-4">
+                                    <label className="block text-gray-700">City</label>
+                                    <Field
+                                        name="cus_city"
+                                        type="text"
+                                        className="w-full px-4 py-2 border rounded-lg"
+                                    />
+                                    <ErrorMessage name="cus_city" component="div" className="text-red-500 text-sm" />
+                                </div>
+
+                                <div className="mb-4">
+                                    <label className="block text-gray-700">Postcode</label>
+                                    <Field
+                                        name="cus_postcode"
+                                        type="text"
+                                        className="w-full px-4 py-2 border rounded-lg"
+                                    />
+                                    <ErrorMessage name="cus_postcode" component="div" className="text-red-500 text-sm" />
+                                </div>
+
+                                <div className="flex justify-between mb-2">
+                                    <span>Total Items:</span>
+                                    <span>{cartItems.reduce((count, item) => count + item.quantity, 0)}</span>
+                                </div>
+                                <div className="flex justify-between mb-4">
+                                    <span>Total Price:</span>
+                                    <span>${cartItems.reduce((total, item) => total + (item.price.min * item.quantity), 0).toFixed(2)}</span>
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                                >
+                                    Proceed to Checkout
+                                </button>
+                            </Form>
+                        )}
+                    </Formik>
                 </div>
             </div>
         </div>
