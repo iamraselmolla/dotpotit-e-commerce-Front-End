@@ -25,7 +25,10 @@ const AuthProvider = ({ children }) => {
 
         if (storedJwtToken && isSignedIn) {
             setJwtToken(storedJwtToken);
-            setUser({ /* Optionally set user info here if available */ });
+            const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (storedUser) {
+                setUser(storedUser); // Set user from localStorage
+            }
             setIsAuthenticated(true);
         } else {
             setIsAuthenticated(false);

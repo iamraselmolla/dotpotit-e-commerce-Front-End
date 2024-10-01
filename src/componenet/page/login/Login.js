@@ -33,9 +33,11 @@ const Login = () => {
             if (response?.status === 200) {
                 // Success case
                 toast.success(response?.data?.message);
+                console.log(response)
 
                 // Update AuthContext to reflect the logged-in user
                 setUser(response?.data?.data); // Assuming response contains user info
+                localStorage.setItem('currentUser', JSON.stringify(response?.data?.data));
                 setIsAuthenticated(true); // Set isAuthenticated to true
 
                 // Navigate to the homepage or any other protected route

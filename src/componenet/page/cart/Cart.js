@@ -6,11 +6,11 @@ import * as Yup from 'yup';
 import { makePayment } from '../../services/user_services';
 
 const Cart = () => {
-    const { cartItems, increaseQuantity, decreaseQuantity, removeFromCart } = useContext(AuthContext);
+    const { cartItems, increaseQuantity, decreaseQuantity, user, removeFromCart } = useContext(AuthContext);
 
     const handleCheckout = async (values) => {
         const totalAmount = cartItems.reduce((total, item) => total + (item.price.min * item.quantity), 0);
-        const cartData = cartItems.map(item => ({
+        const products = cartItems.map(item => ({
             productId: item._id,
             quantity: item.quantity,
             price: item.price.min
@@ -19,9 +19,10 @@ const Cart = () => {
         try {
             const response = await makePayment({
                 totalAmount,
-                cartData,
+                products,
                 shippingData: values, // Include the shipping data from the form
                 currency: 'BDT',
+                user: user?.userId
             });
             if (response?.data?.url) {
                 window.location.href = response.data.url;
@@ -35,11 +36,11 @@ const Cart = () => {
 
     // Formik validation schema
     const validationSchema = Yup.object({
-        cus_name: Yup.string().required('Name is required'),
-        cus_phone: Yup.string().required('Mobile number is required').matches(/^[0-9]{11}$/, 'Invalid mobile number'),
-        cus_address: Yup.string().required('Address is required'),
-        cus_city: Yup.string().required('City is required'),
-        cus_postcode: Yup.string().required('Postcode is required'),
+        // cus_name: Yup.string().required('Name is required'),
+        // cus_phone: Yup.string().required('Mobile number is required').matches(/^[0-9]{11}$/, 'Invalid mobile number'),
+        // cus_address: Yup.string().required('Address is required'),
+        // cus_city: Yup.string().required('City is required'),
+        // cus_postcode: Yup.string().required('Postcode is required'),
     });
 
     return (
