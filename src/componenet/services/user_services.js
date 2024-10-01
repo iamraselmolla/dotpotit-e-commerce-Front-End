@@ -14,7 +14,8 @@ const BASE_URL = {
     increaseCountOfProductView: "/product/increment-view-count",
 
 
-    makePayment: "/ssl-request/init"
+    makePayment: "/payment/init",
+    getOrderHisotry: "/payment/order-hisotry",
 
 };
 
@@ -53,4 +54,9 @@ export function increaseCountOfProductView(id) {
 export function makePayment(data) {
 
     return http.post(BASE_URL.makePayment, data);
+}
+
+export function getPurchaseHistory(id) {
+    console.log("hit")
+    return http.get(BASE_URL.getOrderHisotry + `/${id}`);
 }

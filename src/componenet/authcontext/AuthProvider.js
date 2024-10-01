@@ -110,6 +110,13 @@ const AuthProvider = ({ children }) => {
         setCartItemCount(0); // Reset cart item count
         // localStorage.removeItem('cartItems'); // Clear cart items from localStorage
     };
+    const clearCart = () => {
+        setCartItems([]);
+        setCartTotalPrice(0);
+        setCartItemCount(0);
+        localStorage.removeItem('cartItems'); // Clear from localStorage
+    };
+
 
     const authInfo = {
         user,
@@ -129,6 +136,7 @@ const AuthProvider = ({ children }) => {
         cartTotalPrice,
         cartItemCount,
         logout,
+        clearCart
     };
 
     if (initialLoading) {

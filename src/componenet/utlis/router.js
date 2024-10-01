@@ -58,6 +58,10 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><Cart /></PrivateRoute>,
             },
             {
+                path: "/history",  // Relative path
+                element: <PurchaseHistory />,
+            },
+            {
                 path: "/register",
                 element: <Register />,
             },
@@ -66,13 +70,10 @@ const router = createBrowserRouter([
                 element: <Dashboard />,
                 children: [
                     {
-                        path: "",  // Default child route for /dashboard
+                        path: "/dashboard",  // Default child route for /dashboard
                         element: <Dashboard />,  // This can be your default component if needed
                     },
-                    {
-                        path: "history",  // Relative path
-                        element: <PurchaseHistory />,
-                    },
+
                 ]
             },
             {
