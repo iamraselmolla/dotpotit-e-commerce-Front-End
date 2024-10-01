@@ -12,7 +12,6 @@ import AddProduct from "../page/products/AddProduct";
 import WishLists from "../page/wishlist/WishLists";
 import PrivateRoute from "./PrivateRoute";
 import Cart from "../page/cart/Cart";
-import Dashboard from "../page/dashboard/Dashboard";
 import PurchaseHistory from "../page/dashboard/user/PurchaseHistory";
 import CategoryForm from "../page/dashboard/admin/add-category/AddCategory";
 
@@ -64,17 +63,6 @@ const router = createBrowserRouter([
             {
                 path: "/register",
                 element: <Register />,
-            },
-            {
-                path: "/dashboard",
-                element: <Dashboard />,
-                children: [
-                    {
-                        path: "/dashboard",  // Default child route for /dashboard
-                        element: <Dashboard />,  // This can be your default component if needed
-                    },
-
-                ]
             },
             {
                 path: '/verify/:token',

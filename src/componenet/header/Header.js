@@ -56,7 +56,7 @@ const Header = () => {
                         </div></Link>
 
                     <div className="flex items-center">
-                        <Link to={'/dashboard'}><FaUserCircle className="w-6 h-6 mr-2" /></Link>
+                        <FaUserCircle className="w-6 h-6 mr-2" />
                         <div className="text-xs">
                             {isAuthenticated ? (
                                 <>
