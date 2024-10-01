@@ -86,7 +86,15 @@ const AddProduct = () => {
 
     return (
         <div className="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-6 text-center">Upload Product (Didn't connect with DB, Just dispalyed to share the thought that we can handle the produt from form to add)</h2>
+            <h2 className="text-2xl font-bold mb-6 text-center">
+                Upload Product (Just a demonstration)
+            </h2>
+            <p className="text-center text-gray-600 mb-4">
+                This section is for showcasing how we can handle product uploads from a form.
+                Currently, it’s not connected to a database, but it illustrates our approach
+                for future functionality.
+            </p>
+
             {error && <div className="text-red-500 text-center mb-4">{error}</div>}
             <Formik
                 initialValues={initialValues}
