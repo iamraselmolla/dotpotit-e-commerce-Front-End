@@ -171,7 +171,6 @@ const ProductDetails = () => {
                             <button onClick={() => setQuantity(quantity + 1)} className="p-2"><FaPlus /></button>
                         </div>
                         <button onClick={() => addToCart(product)} className="w-full bg-blue-600 text-white py-2 rounded-lg mb-2">Add to Cart</button>
-                        <button className="w-full bg-gray-300 text-gray-800 py-2 rounded-lg">Buy Now</button>
                     </div>
                 </div>
             </div>

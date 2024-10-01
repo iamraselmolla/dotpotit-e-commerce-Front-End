@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getPurchaseHistory } from '../../../services/user_services';
 import { AuthContext } from '../../../authcontext/AuthProvider';
-import { FaShoppingCart, FaTruck, FaCreditCard, FaCalendarAlt } from 'react-icons/fa';
+import { FaShoppingCart, FaTruck, FaCreditCard, FaCalendarAlt, FaBox } from 'react-icons/fa';
 
 const PurchaseHistory = () => {
     const [history, setHistory] = useState([]);
     const [loading, setLoading] = useState(true);
-    const { user, clearCart } = useContext(AuthContext); // Use clearCart from context
+    const { user, clearCart } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchHistory = async () => {
@@ -30,7 +30,7 @@ const PurchaseHistory = () => {
         const params = new URLSearchParams(window.location.search);
         const paymentSuccess = params.get('payment') === 'success';
         if (paymentSuccess) {
-            clearCart(); // Clear the cart on successful payment
+            clearCart();
         }
     }, [clearCart]);
 
@@ -57,74 +57,64 @@ const PurchaseHistory = () => {
     }
 
     return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-3xl font-bold mb-6 text-center">Your Purchase History</h1>
-            <div className="space-y-8">
+        <div className="container mx-auto p-4 max-w-8xl">
+            <h1 className="text-4xl font-bold mb-8 text-center text-primary">Your Purchase History</h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {history?.map((transaction) => (
-                    <div key={transaction?._id} className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300">
-                        <div className="card-body">
-                            <h2 className="card-title flex justify-between items-center">
-                                <span>Order #{transaction._id.slice(-6)}</span>
-                                <span className="badge badge-primary">{transaction.paymentType}</span>
-                            </h2>
-                            <div className="divider"></div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <h3 className="font-semibold flex items-center gap-2">
-                                        <FaTruck /> Shipping Details
+                    <div key={transaction?._id} className="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <div className="bg-primary text-white p-4">
+                            <div className="flex justify-between items-center">
+                                <h2 className="text-2xl font-semibold">Order #{transaction._id.slice(-6)}</h2>
+                                <span className="bg-white text-primary px-3 py-1 rounded-full text-sm font-medium">
+                                    {transaction.paymentType}
+                                </span>
+                            </div>
+                            <div className="mt-2 flex items-center space-x-4 text-sm">
+                                <span className="flex items-center">
+                                    <FaCalendarAlt className="mr-1" /> {new Date(transaction.createdAt).toLocaleDateString()}
+                                </span>
+                                <span className="flex items-center">
+                                    <FaCreditCard className="mr-1" /> ${transaction.totalAmount.toFixed(2)}
+                                </span>
+                            </div>
+                        </div>
+                        <div className="p-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div className="bg-gray-50 p-4 rounded-lg">
+                                    <h3 className="font-semibold flex items-center gap-2 mb-2 text-gray-700">
+                                        <FaTruck className="text-primary" /> Shipping Details
                                     </h3>
-                                    <p>{transaction.shippingData.name}</p>
-                                    <p>{transaction.shippingData.phone}</p>
-                                    <p>{transaction.shippingData.address}, {transaction.shippingData.city}, {transaction.shippingData.postcode}</p>
+                                    <p className="text-sm text-gray-600">{transaction.shippingData.name}</p>
+                                    <p className="text-sm text-gray-600">{transaction.shippingData.phone}</p>
+                                    <p className="text-sm text-gray-600">{transaction.shippingData.address}, {transaction.shippingData.city}, {transaction.shippingData.postcode}</p>
                                 </div>
-                                <div>
-                                    <h3 className="font-semibold flex items-center gap-2">
-                                        <FaCalendarAlt /> Order Date
+                                <div className="bg-gray-50 p-4 rounded-lg">
+                                    <h3 className="font-semibold flex items-center gap-2 mb-2 text-gray-700">
+                                        <FaBox className="text-primary" /> Order Summary
                                     </h3>
-                                    <p>{new Date(transaction.createdAt).toLocaleString()}</p>
+                                    <p className="text-sm text-gray-600">Total Items: {transaction.products.length}</p>
+                                    <p className="text-sm text-gray-600">Status: <span className="text-green-600 font-medium">Completed</span></p>
                                 </div>
                             </div>
-                            <div className="divider"></div>
-                            <div className="overflow-x-auto">
-                                <table className="table w-full">
-                                    <thead>
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {transaction.products.map((product) => (
-                                            <tr key={product.productId._id}>
-                                                <td>
-                                                    <div className="flex items-center space-x-3">
-                                                        <div className="avatar">
-                                                            <div className="mask mask-squircle w-12 h-12">
-                                                                <img src={product.image} alt={product.productId.name} />
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <Link to={`/product/${product.productId._id}`} className="font-bold text-blue-600 hover:underline">
-                                                                {product.productId.name}
-                                                            </Link>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>${product.price.toFixed(2)}</td>
-                                                <td>{product.quantity}</td>
-                                                <td>${product.totalPrice.toFixed(2)}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th colSpan="3" className="text-right">Total Amount:</th>
-                                            <th>${transaction.totalAmount.toFixed(2)}</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
+                            <div className="space-y-4">
+                                {transaction.products.map((product) => (
+                                    <div key={product.productId._id} className="flex items-center space-x-4 border-b pb-4">
+                                        <img src={product.image} alt={product.productId.name} className="w-20 h-20 object-cover rounded-md" />
+                                        <div className="flex-grow">
+                                            <Link to={`/product/${product.productId._id}`} className="text-lg font-medium text-primary hover:underline">
+                                                {product.name} {/* Display the product name */}
+                                            </Link>
+                                            <p className="text-sm text-gray-500">Quantity: {product.quantity}</p>
+                                        </div>
+                                        <div className="text-right">
+                                            <p className="font-medium">${product.totalPrice.toFixed(2)}</p>
+                                            <p className="text-sm text-gray-500">${product.price.toFixed(2)} each</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="mt-6 text-right">
+                                <p className="text-lg font-semibold">Total: <span className="text-primary">${transaction.totalAmount.toFixed(2)}</span></p>
                             </div>
                         </div>
                     </div>

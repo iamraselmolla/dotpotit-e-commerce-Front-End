@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import Loader from "../shared/Loader";
+import toast from "react-hot-toast";
 
 export const AuthContext = createContext();
 
@@ -69,6 +70,7 @@ const AuthProvider = ({ children }) => {
         }
 
         updateCartState(existingCartItems);
+        toast.success("item added to cart");
     };
 
     const increaseQuantity = (productId) => {
