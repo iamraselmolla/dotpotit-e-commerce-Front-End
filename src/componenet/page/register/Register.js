@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -11,6 +11,7 @@ const Register = () => {
     const [loading, setLoading] = useState(false); // Loading state
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const navigate = useNavigate();
 
     const initialValues = {
         name: '',
@@ -45,6 +46,8 @@ const Register = () => {
             })
             toast.success(response.data.message || 'Registration successful!');
             // Redirect to login or another page as needed
+            navigate('/login');
+
         } catch (error) {
             toast.error(error.response?.data?.message || 'Registration failed');
         } finally {
