@@ -58,7 +58,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/history",  // Relative path
-                element: <PurchaseHistory />,
+                element: <PrivateRoute><PurchaseHistory /></PrivateRoute>,
             },
             {
                 path: "/register",
