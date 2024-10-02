@@ -4,6 +4,7 @@ import { FaPlus, FaMinus, FaTrash } from 'react-icons/fa';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { makePayment } from '../../services/user_services';
+import toast from 'react-hot-toast';
 
 const Cart = () => {
     const { cartItems, increaseQuantity, decreaseQuantity, user, removeFromCart } = useContext(AuthContext);
@@ -17,17 +18,23 @@ const Cart = () => {
         }));
 
         try {
-            const response = await makePayment({
-                totalAmount,
-                products,
-                shippingData: values, // Include the shipping data from the form
-                currency: 'BDT',
-                user: user?.userId
-            });
-            if (response?.data?.url) {
-                window.location.href = response.data.url;
+            const { userId } = JSON.parse(localStorage.getItem("currentUser")); // No need for await here
+
+            if (userId) {
+                const response = await makePayment({
+                    totalAmount,
+                    products,
+                    shippingData: values, // Include the shipping data from the form
+                    currency: 'BDT',
+                    user: userId
+                });
+                if (response?.data?.url) {
+                    window.location.href = response.data.url;
+                } else {
+                    alert("Payment initialization failed.");
+                }
             } else {
-                alert("Payment initialization failed.");
+                toast.error("no user Id")
             }
         } catch (error) {
             console.error('Checkout error:', error);
