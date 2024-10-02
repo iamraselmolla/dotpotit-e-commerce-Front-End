@@ -12,7 +12,7 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
 
     // Consume AuthContext to get setters for user state
-    const { setUser, setIsAuthenticated } = useContext(AuthContext);
+    const { setUser, setIsAuthenticated, setJwtToken } = useContext(AuthContext);
 
     // Validation schema
     const validationSchema = Yup.object({
@@ -35,9 +35,17 @@ const Login = () => {
                 toast.success(response?.data?.message);
 
                 // Update AuthContext to reflect the logged-in user
-                setUser(response?.data?.data); // Assuming response contains user info
-                localStorage.setItem('currentUser', JSON.stringify(response?.data?.data));
+                const userData = response?.data?.data;
+                const token = response?.data?.token; // Assuming JWT token is sent in response
+
+                setUser(userData); // Set user in context
+                setJwtToken(token); // Set JWT token in context
                 setIsAuthenticated(true); // Set isAuthenticated to true
+
+                // Save to localStorage
+                localStorage.setItem('currentUser', JSON.stringify(userData)); // Store user in localStorage
+                localStorage.setItem('jwttoken', token); // Store JWT token in localStorage
+                localStorage.setItem('isSignedIn', 'true'); // Store signed-in state in localStorage
 
                 // Navigate to the homepage or any other protected route
                 navigate('/');
@@ -55,7 +63,6 @@ const Login = () => {
             setLoading(false); // Always turn off loading state
         }
     };
-
 
     return (
         <div className="min-h-screen bg-gray-100 flex items-center justify-center">
