@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getPurchaseHistory } from '../../../services/user_services';
 import { AuthContext } from '../../../authcontext/AuthProvider';
 import { FaTruck, FaCreditCard, FaCalendarAlt, FaBox } from 'react-icons/fa';
+import toast from 'react-hot-toast';
 
 const PurchaseHistory = () => {
     const [history, setHistory] = useState([]);
@@ -12,10 +13,15 @@ const PurchaseHistory = () => {
     useEffect(() => {
         const fetchHistory = async () => {
             try {
-                console.log(user?.userId);
-                const result = await getPurchaseHistory(user?.userId);
-                if (result?.status === 200) {
-                    setHistory(result.data?.data);
+                const currentUser = JSON.parse(localStorage.getItem("currentUser")); // No need for await here
+                const { userId } = currentUser || {};
+                if (userId) {
+                    const result = await getPurchaseHistory(userId);
+                    if (result?.status === 200) {
+                        setHistory(result.data?.data);
+                    }
+                } else {
+                    toast.error("No user ID found");
                 }
             } catch (error) {
                 console.error("Error fetching purchase history:", error);
@@ -26,6 +32,7 @@ const PurchaseHistory = () => {
 
         fetchHistory();
     }, [user?.userId]);
+
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);

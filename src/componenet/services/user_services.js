@@ -57,6 +57,6 @@ export function makePayment(data) {
 }
 
 export function getPurchaseHistory(id) {
-    console.log("hit")
+
     return http.get(BASE_URL.getOrderHisotry + `/${id}`);
 }
