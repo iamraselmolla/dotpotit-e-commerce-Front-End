@@ -9,13 +9,13 @@ const WishList = ({ product, removeFromWishlist }) => {
         <div className="bg-white rounded-lg shadow-md p-4 relative transition-transform transform hover:scale-105">
             {/* Wishlist & Trash Icons */}
             <div className="absolute top-2 right-2 flex space-x-2">
-                <button className="text-gray-500 hover:text-red-500" onClick={() => removeFromWishlist(product?.id)}>
+                <button className="text-gray-500 hover:text-red-500" onClick={() => removeFromWishlist(product?._id)}>
                     <FaTrash className="w-5 h-5" />
                 </button>
             </div>
 
             {/* Product Image */}
-            <Link to={`/products/${product?.id}`}>
+            <Link to={`/products/${product?._id}`}>
                 <img src={product.images[0]} alt={product.name} className="w-full h-48 object-contain mb-4 rounded" />
             </Link>
 

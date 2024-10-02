@@ -10,7 +10,7 @@ const WishLists = () => {
     // Function to remove product from wishlist
     const removeFromWishlist = (productId) => {
         const storedWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-        const updatedWishlist = storedWishlist.filter(item => item.id?.toString() !== productId?.toString());
+        const updatedWishlist = storedWishlist.filter(item => item?._id?.toString() !== productId?.toString());
 
         // Update the local storage and state
         localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));

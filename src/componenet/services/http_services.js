@@ -1,5 +1,5 @@
 import axios from 'axios';
-const token = localStorage.getItem('CurrentUserToken');
+const token = localStorage.getItem('jwttoken');
 const http_create = axios.create({
     baseURL: 'https://dot-commerce-server.vercel.app/api/v1',
     headers: {
@@ -10,7 +10,7 @@ const http_create = axios.create({
 http_create.interceptors.request.use(
     (config) => {
         // if (typeof window !== 'undefined') {
-        const token = localStorage.getItem('CurrentUserToken');
+        const token = localStorage.getItem('jwttoken');
         if (token) {
             config.headers.authorization = `Bearer ${token}`;
         }
