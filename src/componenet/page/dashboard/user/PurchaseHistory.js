@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getPurchaseHistory } from '../../../services/user_services';
 import { AuthContext } from '../../../authcontext/AuthProvider';
-import { FaShoppingCart, FaTruck, FaCreditCard, FaCalendarAlt, FaBox } from 'react-icons/fa';
+import { FaTruck, FaCreditCard, FaCalendarAlt, FaBox } from 'react-icons/fa';
 
 const PurchaseHistory = () => {
     const [history, setHistory] = useState([]);
@@ -12,6 +12,7 @@ const PurchaseHistory = () => {
     useEffect(() => {
         const fetchHistory = async () => {
             try {
+                console.log(user?.userId);
                 const result = await getPurchaseHistory(user?.userId);
                 if (result?.status === 200) {
                     setHistory(result.data?.data);
@@ -32,7 +33,7 @@ const PurchaseHistory = () => {
         if (paymentSuccess) {
             clearCart();
         }
-    }, [clearCart]);
+    }, []);
 
     if (loading) {
         return (
@@ -98,7 +99,7 @@ const PurchaseHistory = () => {
                             </div>
                             <div className="space-y-4">
                                 {transaction.products.map((product) => (
-                                    <div key={product.productId._id} className="flex items-center space-x-4 border-b pb-4">
+                                    <div key={product?.productId} className="flex items-center space-x-4 border-b pb-4">
                                         <img src={product.image} alt={product.productId.name} className="w-20 h-20 object-cover rounded-md" />
                                         <div className="flex-grow">
                                             <Link to={`/products/${product?.productId}`} className="text-lg font-medium text-primary hover:underline">

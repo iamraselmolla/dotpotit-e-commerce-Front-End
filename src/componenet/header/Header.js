@@ -61,7 +61,7 @@ const Header = () => {
                             {isAuthenticated ? (
                                 <>
                                     <div>WELCOME, {user?.name}</div> {/* Display the user's name */}
-                                    {console.log(user)}
+
                                     <button
                                         onClick={logout}
                                         className="font-semibold hover:text-green-500"

@@ -33,7 +33,6 @@ const Login = () => {
             if (response?.status === 200) {
                 // Success case
                 toast.success(response?.data?.message);
-                console.log(response)
 
                 // Update AuthContext to reflect the logged-in user
                 setUser(response?.data?.data); // Assuming response contains user info
