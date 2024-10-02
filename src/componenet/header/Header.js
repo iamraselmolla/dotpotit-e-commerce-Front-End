@@ -41,7 +41,7 @@ const Header = () => {
                     <Link to="/products" className="hover:text-green-500 uppercase">PRODUCTS</Link>
                     <Link to="/add-product" className="hover:text-green-500 uppercase">Add Product</Link>
                     <Link to="/add-category" className="hover:text-green-500 uppercase">Add Category</Link>
-                    <Link to="/history" className="hover:text-green-500 uppercase">Order Hisotry</Link>
+                    {user && <Link to="/history" className="hover:text-green-500 uppercase">Order Hisotry</Link>}
                 </div>
 
                 <div className="flex items-center space-x-4">
