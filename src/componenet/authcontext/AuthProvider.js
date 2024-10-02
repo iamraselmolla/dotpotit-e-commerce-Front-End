@@ -21,10 +21,10 @@ const AuthProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        const storedJwtToken = getCookie('jwttoken');
-        const isSignedIn = getCookie('dotpotItSign') === 'true';
+        const storedJwtToken = localStorage.getItem('jwttoken');
+        const storedIsSignedIn = localStorage.getItem('isSignedIn') === 'true';
 
-        if (storedJwtToken && isSignedIn) {
+        if (storedJwtToken && storedIsSignedIn) {
             setJwtToken(storedJwtToken);
             const storedUser = JSON.parse(localStorage.getItem('currentUser'));
             if (storedUser) {
@@ -44,20 +44,6 @@ const AuthProvider = ({ children }) => {
         setCartTotalPrice(storedCartItems.reduce((total, item) => total + (item.price.min * item.quantity), 0));
         setCartItemCount(storedCartItems.reduce((count, item) => count + item.quantity, 0)); // Count total items
     }, []);
-
-    function getCookie(name) {
-        const nameEQ = name + "=";
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            let cookie = cookies[i].trim();
-            if (cookie.indexOf(nameEQ) === 0) return cookie.substring(nameEQ.length, cookie.length);
-        }
-        return null;
-    }
-
-    function deleteCookie(name) {
-        document.cookie = `${name}=; Max-Age=0; path=/; domain=${window.location.hostname}`;
-    }
 
     const addToCart = (product) => {
         const existingCartItems = [...cartItems];
@@ -102,23 +88,23 @@ const AuthProvider = ({ children }) => {
     };
 
     const logout = () => {
-        deleteCookie('jwttoken');
-        deleteCookie('dotpotItSign');
+        localStorage.removeItem('jwttoken');
+        localStorage.removeItem('isSignedIn');
+        localStorage.removeItem('currentUser');
         setUser(null);
         setIsAuthenticated(false);
         setWishlistNumber(0); // Reset wishlist count on logout
         setCartItems([]); // Clear cart items
         setCartTotalPrice(0); // Reset total price
         setCartItemCount(0); // Reset cart item count
-        // localStorage.removeItem('cartItems'); // Clear cart items from localStorage
     };
+
     const clearCart = () => {
         setCartItems([]);
         setCartTotalPrice(0);
         setCartItemCount(0);
         localStorage.removeItem('cartItems'); // Clear from localStorage
     };
-
 
     const authInfo = {
         user,
