@@ -37,7 +37,7 @@ const Login = () => {
                 // Update AuthContext to reflect the logged-in user
                 const userData = response?.data?.data;
                 const token = response?.data?.data?.token; // Assuming JWT token is sent in response
-                console.lg(response)
+
 
                 setUser(userData); // Set user in context
                 setJwtToken(token); // Set JWT token in context
