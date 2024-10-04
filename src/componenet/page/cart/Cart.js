@@ -18,13 +18,13 @@ const Cart = () => {
         }));
 
         try {
-            const { userId } = JSON.parse(localStorage.getItem("currentUser")); // No need for await here
+            const { userId } = JSON.parse(localStorage.getItem("currentUser"));
 
             if (userId) {
                 const response = await makePayment({
                     totalAmount,
                     products,
-                    shippingData: values, // Include the shipping data from the form
+                    shippingData: values,
                     currency: 'BDT',
                     user: userId
                 });
@@ -43,11 +43,11 @@ const Cart = () => {
 
     // Formik validation schema
     const validationSchema = Yup.object({
-        // cus_name: Yup.string().required('Name is required'),
-        // cus_phone: Yup.string().required('Mobile number is required').matches(/^[0-9]{11}$/, 'Invalid mobile number'),
-        // cus_address: Yup.string().required('Address is required'),
-        // cus_city: Yup.string().required('City is required'),
-        // cus_postcode: Yup.string().required('Postcode is required'),
+        cus_name: Yup.string().required('Name is required'),
+        cus_phone: Yup.string().required('Mobile number is required').matches(/^[0-9]{11}$/, 'Invalid mobile number'),
+        cus_address: Yup.string().required('Address is required'),
+        cus_city: Yup.string().required('City is required'),
+        cus_postcode: Yup.string().required('Postcode is required'),
     });
 
     return (
@@ -57,8 +57,8 @@ const Cart = () => {
                 <div className="md:col-span-2">
                     {cartItems.length > 0 ? (
                         cartItems.map((item) => (
-                            <div key={item._id} className="flex items-center justify-between p-4 bg-white rounded-lg shadow-md mb-4">
-                                <img src={item.images[0]} alt={item.name} className="w-28 h-28 object-cover rounded-md border" />
+                            <div key={item._id} className="flex flex-col md:flex-row items-center justify-between p-4 bg-white rounded-lg shadow-md mb-4">
+                                <img src={item.images[0]} alt={item.name} className="w-28 h-28 object-cover rounded-md border mb-4 md:mb-0" />
                                 <div className="flex-1 px-4">
                                     <h2 className="text-lg font-semibold">{item.name}</h2>
                                     <p className="text-gray-700">Price: <span className="font-bold">${item.price.min.toFixed(2)}</span></p>
@@ -67,7 +67,7 @@ const Cart = () => {
                                         {item.inStock ? 'In Stock' : 'Out of Stock'}
                                     </span>
                                 </div>
-                                <div className="flex items-center">
+                                <div className="flex items-center mb-4 md:mb-0">
                                     <button onClick={() => decreaseQuantity(item._id)} className="p-2 bg-gray-200 hover:bg-gray-300 rounded-full">
                                         <FaMinus />
                                     </button>
@@ -76,7 +76,7 @@ const Cart = () => {
                                         <FaPlus />
                                     </button>
                                 </div>
-                                <button onClick={() => removeFromCart(item._id)} className="p-2 ml-4 bg-red-500 hover:bg-red-600 text-white rounded-full">
+                                <button onClick={() => removeFromCart(item._id)} className="p-2 ml-0 md:ml-4 bg-red-500 hover:bg-red-600 text-white rounded-full">
                                     <FaTrash />
                                 </button>
                             </div>
@@ -96,7 +96,7 @@ const Cart = () => {
                             cus_address: '',
                             cus_city: '',
                             cus_postcode: '',
-                            cus_email: user?.email || '', // Set email from user context
+                            cus_email: user?.email || '',
                         }}
                         validationSchema={validationSchema}
                         onSubmit={handleCheckout}
@@ -159,9 +159,9 @@ const Cart = () => {
                                     <Field
                                         name="email"
                                         type="email"
-                                        value={user?.email} // Value comes from user context
+                                        value={user?.email}
                                         className="w-full px-4 py-2 border rounded-lg bg-gray-200"
-                                        readOnly // Make it read-only
+                                        readOnly
                                     />
                                     <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
                                 </div>
