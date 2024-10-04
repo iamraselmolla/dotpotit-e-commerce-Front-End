@@ -38,11 +38,13 @@ const Header = () => {
                     <div className="w-8 h-8 lg:w-10 lg:h-10 bg-green-500 rounded-full flex items-center justify-center">
                         <span className="text-white text-xl lg:text-2xl">😊</span>
                     </div>
-                    <span className="font-bold text-lg lg:text-xl">SWOO TECH MART</span>
+                    <Link to="/" className="hover:text-green-500 uppercase">
+                        <span className="font-bold text-lg lg:text-xl">SWOO TECH MART</span>
+                    </Link>
                 </div>
 
                 {/* Desktop Navigation */}
-                <div className="hidden md:flex space-x-6">
+                <div className="hidden lg:flex space-x-6">
                     <Link to="/" className="hover:text-green-500 uppercase">HOME</Link>
                     <Link to="/products" className="hover:text-green-500 uppercase">PRODUCTS</Link>
                     <Link to="/add-product" className="hover:text-green-500 uppercase">Add Product</Link>
@@ -51,7 +53,7 @@ const Header = () => {
                 </div>
 
                 {/* Mobile Hamburger Menu Icon */}
-                <div className="md:hidden flex items-center">
+                <div className="lg:hidden flex items-center">
                     <button onClick={toggleMenu}>
                         {menuOpen ? <FaTimes className="w-8 h-8" /> : <FaBars className="w-8 h-8" />}
                     </button>

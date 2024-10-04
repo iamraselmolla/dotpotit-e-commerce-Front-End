@@ -3,7 +3,7 @@ import { FaAngleRight, FaHeart, FaEye, FaShoppingCart, FaPlus } from 'react-icon
 
 const DealsOfTheDay = () => {
     return (
-        <section className="container mx-auto py-8 px-4">
+        <section className="mx-auto py-8 px-4">
             <div className="flex flex-wrap -mx-3">
                 {/* Main Deals Section */}
                 <div className="w-full lg:w-9/12 px-3">

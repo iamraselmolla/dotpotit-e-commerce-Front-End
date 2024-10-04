@@ -77,8 +77,8 @@ const Products = () => {
     return (
         <div className="container mx-auto p-4">
             {/* Filter Buttons */}
-            <div className="flex justify-between mb-6">
-                <div>
+            <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+                <div className="flex flex-wrap gap-2">
                     <button
                         className={`btn ${filterType === 'all' ? 'btn-active' : ''}`}
                         onClick={() => setFilterType('all')}
@@ -98,9 +98,10 @@ const Products = () => {
                         Best Viewing
                     </button>
                 </div>
+
                 {/* Category Dropdown */}
                 <select
-                    className="select select-bordered"
+                    className="select select-bordered w-full sm:w-auto"
                     onChange={(e) => setSelectedCategory(e.target.value)}
                     value={selectedCategory}
                 >
@@ -115,7 +116,7 @@ const Products = () => {
                 {/* Search Input */}
                 <input
                     type="text"
-                    className="input input-bordered"
+                    className="input input-bordered w-full sm:w-auto"
                     placeholder="Search products..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
@@ -123,7 +124,7 @@ const Products = () => {
             </div>
 
             {/* Product Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {loading && <Loader />}
                 {!loading && filteredProducts.length === 0 && (
                     <p>No products found for the selected filter.</p>

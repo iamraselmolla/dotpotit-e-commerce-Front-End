@@ -10,7 +10,7 @@ function Home2() {
         <div>
             <Hero />
             {/* Responsive grid layout for Featured Brands and Top Categories */}
-            <div className="container mx-auto p-4 grid gap-6 grid-cols-1 lg:grid-cols-2">
+            <div className="mx-auto p-4 grid gap-6 grid-cols-1 lg:grid-cols-2">
                 <FeaturedBrands />
                 <TopCategories />
             </div>
