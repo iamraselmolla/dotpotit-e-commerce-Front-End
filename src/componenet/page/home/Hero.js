@@ -59,7 +59,7 @@ const Hero = () => {
 
                 <div className="bg-white p-4 w-full lg:w-1/3 rounded-lg shadow">
                     {/* Parent div containing both image divs with flexbox for side-by-side layout */}
-                    <div className="flex flex-col md:flex-row lg:flex-col w-full">
+                    <div className="flex flex-col md:flex-row lg:flex-col gap-4 w-full">
                         {/* First image div with content aligned to the right */}
                         <div className="h-52 sm:mb-3 relative flex w-full md:w-1/2 lg:w-full items-center justify-end rounded-lg shadow-lg"
                             style={{
