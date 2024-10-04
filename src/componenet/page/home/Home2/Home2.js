@@ -4,18 +4,16 @@ import FeaturedBrands from '../FeaturesBand';
 import TopCategories from '../TopCategories';
 import DealsOfTheDay from '../DealsofTheDay';
 import Save from '../Save';
-function Home2() {
 
+function Home2() {
     return (
         <div>
             <Hero />
-            <div className="container mx-auto gap-4 p-4 grid md:grid-cols-2 grid-cols-1">
+            {/* Responsive grid layout for Featured Brands and Top Categories */}
+            <div className="container mx-auto p-4 grid gap-6 grid-cols-1 lg:grid-cols-2">
                 <FeaturedBrands />
                 <TopCategories />
             </div>
-            {/* <div className="container grid grid-cols-1 md:grid-cols-3 gap-2 lg:grid-cols-5 mx-auto p-4">
-                {dummyProducts.map(prodcut => <Product key={prodcut.id} product={prodcut} />)}
-            </div> */}
             <DealsOfTheDay />
             <Save />
         </div>
