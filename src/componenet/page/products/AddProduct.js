@@ -21,7 +21,7 @@ const AddProduct = () => {
         sku: '',
         category: '',
         brand: '',
-        images: [],
+        images: '',
         inStock: true,
         shippingFrom: '',
     };
@@ -70,7 +70,6 @@ const AddProduct = () => {
 
         const formData = new FormData();
 
-        // Append product details to the form data
         formData.append('name', values.name);
         formData.append('price', JSON.stringify(values.price));
         formData.append('features', JSON.stringify(values.features));
@@ -82,33 +81,23 @@ const AddProduct = () => {
         formData.append('inStock', values.inStock);
         formData.append('shippingFrom', values.shippingFrom);
 
-        // Append colors as an array of objects without images
-        const colorsData = values.colors.map(color => ({
+        const colorsData = values?.colors?.map(color => ({
             name: color.name,
-            price: color.price
+            price: color.price,
         }));
-
         formData.append('colors', JSON.stringify(colorsData));
 
-        // Append each color image (if available) for color variants
+        if (values.images.length > 0) {
+            formData.append('images', values.images[0]);
+        }
+
         values.colors.forEach((color, index) => {
             if (color.image) {
-                formData.append(`colorsImg[${index}]`, color.image); // Add color image files
+                formData.append('colorsImg', color.image);
             }
         });
 
-        // Append main product images
-        values.images.forEach((image, index) => {
-            formData.append(`images`, image); // Add main product image files
-        });
-
-        // Debugging: log the contents of FormData
-        formData.forEach((value, key) => {
-            console.log(`${key}:`, value);
-        });
-
         try {
-            // Send the form data to your backend via the createProduct function
             const result = await createProduct(formData);
 
             if (result?.status === 200) {
@@ -120,7 +109,7 @@ const AddProduct = () => {
             setError('An error occurred while uploading the product. Please try again.');
         } finally {
             setIsLoading(false);
-            setSubmitting(false); // End form submission
+            setSubmitting(false);
         }
     };
 
