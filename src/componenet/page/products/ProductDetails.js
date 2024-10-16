@@ -18,7 +18,7 @@ const ProductDetails = () => {
                 const response = await findProductById(id);
                 if (response?.status === 200) {
                     setProduct(response.data?.data);
-                    setSelectedImage(response.data?.data?.images?.[0] || ""); // Default to the first image
+                    setSelectedImage(response.data?.data?.images || ""); // Default to the first image
                     setLoading(false);
 
                 }
@@ -31,10 +31,6 @@ const ProductDetails = () => {
 
         fetchProduct();
     }, [id]);
-
-    const handleThumbnailClick = (image) => {
-        setSelectedImage(image);
-    };
 
     const handleColorChange = (color) => {
         setSelectedImage(color?.image); // Change the main image to the selected color's image
@@ -64,15 +60,14 @@ const ProductDetails = () => {
                         <img src={selectedImage} alt="Product" className="w-full h-auto rounded-lg" /> {/* Updated image */}
                     </div>
                     <div className="flex mt-4 space-x-4">
-                        {product?.images?.map((image, index) => (
-                            <img
-                                key={index}
-                                src={image}
-                                alt={`Thumbnail ${index + 1}`}
-                                className="w-20 h-20 rounded-lg cursor-pointer"
-                                onClick={() => handleThumbnailClick(image)} // Change image on click
-                            />
-                        ))}
+
+                        <img
+                            key={product?.images}
+                            src={product?.images}
+                            alt={`Thumbnail`}
+                            className="w-20 h-20 rounded-lg cursor-pointer" Change image on click
+                        />
+
                     </div>
                 </div>
 

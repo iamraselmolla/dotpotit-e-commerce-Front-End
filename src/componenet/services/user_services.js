@@ -8,7 +8,8 @@ const BASE_URL = {
     createCategory: "/category/create-category",
     getAllCategories: "/category/get-categories",
 
-    // createProduct: "/product/create-product",
+    createProduct: "/product/create-product",
+
     getAllProducts: "/product/get-products",
     findProductById: "/product/get-product",
     increaseCountOfProductView: "/product/increment-view-count",
@@ -41,6 +42,9 @@ export function getAllCategories() {
 
 export function getAllProducts() {
     return http.get(BASE_URL.getAllProducts);
+}
+export function createProduct(data) {
+    return http.post(BASE_URL.createProduct, data);
 }
 
 export function findProductById(id) {

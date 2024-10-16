@@ -16,7 +16,7 @@ const WishList = ({ product, removeFromWishlist }) => {
 
             {/* Product Image */}
             <Link to={`/products/${product?._id}`}>
-                <img src={product.images[0]} alt={product.name} className="w-full h-48 object-contain mb-4 rounded" />
+                <img src={product.images} alt={product.name} className="w-full h-48 object-contain mb-4 rounded" />
             </Link>
 
             {/* Ratings */}
