@@ -57,13 +57,13 @@ const ProductDetails = () => {
                                 <button className="bg-white p-2 rounded-full shadow"><FaHeart /></button>
                             </div>
                         </div>
-                        <img src={`http://localhost:5000/${selectedImage}`} alt="Product" className="w-full h-auto rounded-lg" /> {/* Updated image */}
+                        <img src={`${process.env.REACT_APP_SERVER_URL}/${selectedImage}`} alt="Product" className="w-full h-auto rounded-lg" /> {/* Updated image */}
                     </div>
                     <div className="flex mt-4 space-x-4">
 
                         <img
                             key={product?.images}
-                            src={`http://localhost:5000/${product?.images}`}
+                            src={`${process.env.REACT_APP_SERVER_URL}/${product?.images}`}
                             alt={`Thumbnail`}
                             className="w-20 h-20 rounded-lg cursor-pointer" Change image on click
                         />
@@ -99,7 +99,7 @@ const ProductDetails = () => {
                             {product?.colors?.map((color, index) => (
                                 <label key={index} onClick={() => handleColorChange(color)} className="flex flex-col items-center cursor-pointer">
                                     <input type="radio" name="color" value={color?.name} className="sr-only" defaultChecked={index === 0} />
-                                    <img src={`http://localhost:5000/${color?.image}`} alt={color?.name} className="w-16 h-16 rounded-lg mb-1" />
+                                    <img src={`${process.env.REACT_APP_SERVER_URL}/${color?.image}`} alt={color?.name} className="w-16 h-16 rounded-lg mb-1" />
                                     <span className="text-xs">{color?.name}</span>
                                     <span className="text-xs font-bold">${color?.price}</span>
                                 </label>

@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { getAllCategories, createProduct } from '../../services/user_services';
 import toast from 'react-hot-toast';
+import Loader from "../../shared/Loader"
 
 const AddProduct = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -131,6 +132,7 @@ const AddProduct = () => {
 
     return (
         <div className="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md">
+            {isLoading && <Loader />}
             <h2 className="text-2xl font-bold mb-6 text-center">Upload Product</h2>
             <p className="text-center text-gray-600 mb-4">
                 This section is for showcasing how we can handle product uploads from a form.

@@ -58,7 +58,7 @@ const Cart = () => {
                     {cartItems.length > 0 ? (
                         cartItems.map((item) => (
                             <div key={item._id} className="flex flex-col md:flex-row items-center justify-between p-4 bg-white rounded-lg shadow-md mb-4">
-                                <img src={`http://localhost:5000/${item.images}`} alt={item.name} className="w-28 h-28 object-cover rounded-md border mb-4 md:mb-0" />
+                                <img src={`${process.env.REACT_APP_SERVER_URL}/${item.images}`} alt={item.name} className="w-28 h-28 object-cover rounded-md border mb-4 md:mb-0" />
                                 <div className="flex-1 px-4">
                                     <h2 className="text-lg font-semibold">{item.name}</h2>
                                     <p className="text-gray-700">Price: <span className="font-bold">${item.price.min.toFixed(2)}</span></p>

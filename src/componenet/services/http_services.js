@@ -1,7 +1,7 @@
 import axios from 'axios';
 const token = localStorage.getItem('jwttoken');
 const http_create = axios.create({
-    baseURL: 'http://localhost:5000/api/v1',
+    baseURL: `${process.env.REACT_APP_SERVER_URL}/api/v1`,
     headers: {
         Authorization: `Bearer ${token}`,
     },

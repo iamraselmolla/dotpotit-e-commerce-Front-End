@@ -35,7 +35,7 @@ const Product = ({ product }) => {
         <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300">
             <figure className="relative">
                 <img
-                    src={`http://localhost:5000/${product?.images}`}
+                    src={`${process.env.REACT_APP_SERVER_URL}/${product?.images}`}
                     alt={product?.name}
                     className="rounded-xl object-cover w-full"
                 />
