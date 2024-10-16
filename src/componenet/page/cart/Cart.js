@@ -11,7 +11,7 @@ const Cart = () => {
 
     const handleCheckout = async (values) => {
         const totalAmount = cartItems.reduce((total, item) => total + (item.price.min * item.quantity), 0);
-        const products = cartItems.map(item => ({
+        const products = cartItems?.map(item => ({
             productId: item._id,
             quantity: item.quantity,
             price: item.price.min
@@ -55,8 +55,8 @@ const Cart = () => {
             <h1 className="text-2xl font-bold mb-4">Your Shopping Cart</h1>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="md:col-span-2">
-                    {cartItems.length > 0 ? (
-                        cartItems.map((item) => (
+                    {cartItems?.length > 0 ? (
+                        cartItems?.map((item) => (
                             <div key={item._id} className="flex flex-col md:flex-row items-center justify-between p-4 bg-white rounded-lg shadow-md mb-4">
                                 <img src={`${process.env.REACT_APP_SERVER_URL}/${item.images}`} alt={item.name} className="w-28 h-28 object-cover rounded-md border mb-4 md:mb-0" />
                                 <div className="flex-1 px-4">

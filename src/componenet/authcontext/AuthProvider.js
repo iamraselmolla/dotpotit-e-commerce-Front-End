@@ -60,14 +60,14 @@ const AuthProvider = ({ children }) => {
     };
 
     const increaseQuantity = (productId) => {
-        const updatedCartItems = cartItems.map(item =>
+        const updatedCartItems = cartItems?.map(item =>
             item._id === productId ? { ...item, quantity: item.quantity + 1 } : item
         );
         updateCartState(updatedCartItems);
     };
 
     const decreaseQuantity = (productId) => {
-        const updatedCartItems = cartItems.map(item =>
+        const updatedCartItems = cartItems?.map(item =>
             item._id === productId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
         ).filter(item => item.quantity > 0); // Optionally remove item if quantity is 0
         updateCartState(updatedCartItems);

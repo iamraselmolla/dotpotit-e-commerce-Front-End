@@ -170,7 +170,7 @@ const AddProduct = () => {
                             {({ remove, push }) => (
                                 <div className="mb-4">
                                     <label className="block text-sm font-medium text-gray-700">Features</label>
-                                    {values.features.map((_, index) => (
+                                    {values?.features?.map((_, index) => (
                                         <div key={index} className="flex items-center space-x-2 mt-2">
                                             <Field name={`features.${index}`} type="text" className="mt-1 block w-full rounded-md border-gray-300 border pl-4 py-2" />
                                             <button type="button" onClick={() => remove(index)} className="text-red-500"><FaMinus /></button>
@@ -247,7 +247,7 @@ const AddProduct = () => {
                             <label className="block text-sm font-medium text-gray-700">Category</label>
                             <Field as="select" name="category" className="mt-1 block w-full rounded-md border-gray-300 border pl-4 py-2">
                                 <option value="">Select Category</option>
-                                {categories.map((category) => (
+                                {categories?.map((category) => (
                                     <option key={category._id} value={category._id}>{category.name}</option>
                                 ))}
                             </Field>

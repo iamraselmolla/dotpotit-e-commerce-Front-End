@@ -129,7 +129,7 @@ const Products = () => {
                 {!loading && filteredProducts.length === 0 && (
                     <p>No products found for the selected filter.</p>
                 )}
-                {filteredProducts.map((product) => (
+                {filteredProducts?.map((product) => (
                     <Product key={product._id} product={product} />
                 ))}
             </div>
