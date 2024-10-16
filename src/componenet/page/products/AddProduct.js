@@ -149,15 +149,15 @@ const AddProduct = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
                             <div>
                                 <label htmlFor="name" className="block text-sm font-medium text-gray-700">Product Name</label>
-                                <Field name="name" type="text" className="mt-1 block w-full rounded-md border-gray-300" />
+                                <Field name="name" type="text" className="mt-1 block w-full border pl-4 py-2 rounded-md border-gray-300" />
                                 <ErrorMessage name="name" component="div" className="text-red-500 text-sm mt-1" />
                             </div>
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700">Price Range</label>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                                    <Field name="price.min" type="number" placeholder="Min" className="mt-1 block w-full rounded-md border-gray-300" />
-                                    <Field name="price.max" type="number" placeholder="Max" className="mt-1 block w-full rounded-md border-gray-300" />
+                                    <Field name="price.min" type="number" placeholder="Min" className="mt-1 block w-full rounded-md border-gray-300 border pl-4 py-2" />
+                                    <Field name="price.max" type="number" placeholder="Max" className="mt-1 block w-full rounded-md border-gray-300 border pl-4 py-2" />
                                 </div>
                                 <ErrorMessage name="price.min" component="div" className="text-red-500 text-sm mt-1" />
                                 <ErrorMessage name="price.max" component="div" className="text-red-500 text-sm mt-1" />
@@ -170,7 +170,7 @@ const AddProduct = () => {
                                     <label className="block text-sm font-medium text-gray-700">Features</label>
                                     {values.features.map((_, index) => (
                                         <div key={index} className="flex items-center space-x-2 mt-2">
-                                            <Field name={`features.${index}`} type="text" className="mt-1 block w-full rounded-md border-gray-300" />
+                                            <Field name={`features.${index}`} type="text" className="mt-1 block w-full rounded-md border-gray-300 border pl-4 py-2" />
                                             <button type="button" onClick={() => remove(index)} className="text-red-500"><FaMinus /></button>
                                         </div>
                                     ))}
@@ -185,8 +185,8 @@ const AddProduct = () => {
                                     <label className="block text-sm font-medium text-gray-700">Colors</label>
                                     {values.colors.map((_, index) => (
                                         <div key={index} className="flex items-center space-x-2 mt-2">
-                                            <Field name={`colors.${index}.name`} type="text" placeholder="Color Name" className="mt-1 block w-full rounded-md border-gray-300" />
-                                            <Field name={`colors.${index}.price`} type="number" placeholder="Price" className="mt-1 block w-full rounded-md border-gray-300" />
+                                            <Field name={`colors.${index}.name`} type="text" placeholder="Color Name" className="mt-1 block w-full rounded-md border-gray-300 border pl-4 py-2" />
+                                            <Field name={`colors.${index}.price`} type="number" placeholder="Price" className="mt-1 block w-full rounded-md border-gray-300 border pl-4 py-2" />
                                             <input type="file" onChange={async (event) => {
                                                 const file = event.currentTarget.files[0];
                                                 if (file) {
@@ -210,7 +210,7 @@ const AddProduct = () => {
                                     <label className="block text-sm font-medium text-gray-700">Memory Sizes</label>
                                     {values.memorySizes.map((_, index) => (
                                         <div key={index} className="flex items-center space-x-2 mt-2">
-                                            <Field name={`memorySizes.${index}`} type="text" className="mt-1 block w-full rounded-md border-gray-300" />
+                                            <Field name={`memorySizes.${index}`} type="text" className="mt-1 block w-full rounded-md border-gray-300 border pl-4 py-2" />
                                             <button type="button" onClick={() => remove(index)} className="text-red-500"><FaMinus /></button>
                                         </div>
                                     ))}
@@ -225,8 +225,8 @@ const AddProduct = () => {
                                     <label className="block text-sm font-medium text-gray-700">Gifts</label>
                                     {values.gifts.map((_, index) => (
                                         <div key={index} className="flex items-center space-x-2 mt-2">
-                                            <Field name={`gifts.${index}.quantity`} type="number" placeholder="Quantity" className="mt-1 block w-full rounded-md border-gray-300" />
-                                            <Field name={`gifts.${index}.gift`} type="text" placeholder="Gift Description" className="mt-1 block w-full rounded-md border-gray-300" />
+                                            <Field name={`gifts.${index}.quantity`} type="number" placeholder="Quantity" className="mt-1 block w-full rounded-md border-gray-300 border pl-4 py-2" />
+                                            <Field name={`gifts.${index}.gift`} type="text" placeholder="Gift Description" className="mt-1 block w-full rounded-md border-gray-300 border pl-4 py-2" />
                                             <button type="button" onClick={() => remove(index)} className="text-red-500"><FaMinus /></button>
                                         </div>
                                     ))}
@@ -237,13 +237,13 @@ const AddProduct = () => {
 
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-700">SKU</label>
-                            <Field name="sku" type="text" className="mt-1 block w-full rounded-md border-gray-300" />
+                            <Field name="sku" type="text" className="mt-1 block w-full rounded-md border-gray-300 border pl-4 py-2" />
                             <ErrorMessage name="sku" component="div" className="text-red-500 text-sm mt-1" />
                         </div>
 
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-700">Category</label>
-                            <Field as="select" name="category" className="mt-1 block w-full rounded-md border-gray-300">
+                            <Field as="select" name="category" className="mt-1 block w-full rounded-md border-gray-300 border pl-4 py-2">
                                 <option value="">Select Category</option>
                                 {categories.map((category) => (
                                     <option key={category._id} value={category._id}>{category.name}</option>
@@ -254,7 +254,7 @@ const AddProduct = () => {
 
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-700">Brand</label>
-                            <Field name="brand" type="text" className="mt-1 block w-full rounded-md border-gray-300" />
+                            <Field name="brand" type="text" className="mt-1 block w-full rounded-md border-gray-300 border pl-4 py-2" />
                             <ErrorMessage name="brand" component="div" className="text-red-500 text-sm mt-1" />
                         </div>
 
@@ -274,7 +274,7 @@ const AddProduct = () => {
 
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-700">Shipping From</label>
-                            <Field name="shippingFrom" type="text" className="mt-1 block w-full rounded-md border-gray-300" />
+                            <Field name="shippingFrom" type="text" className="mt-1 block w-full rounded-md border-gray-300 border pl-4 py-2" />
                             <ErrorMessage name="shippingFrom" component="div" className="text-red-500 text-sm mt-1" />
                         </div>
 
