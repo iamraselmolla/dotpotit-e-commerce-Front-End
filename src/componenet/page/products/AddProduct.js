@@ -70,6 +70,7 @@ const AddProduct = () => {
 
         const formData = new FormData();
 
+        // Append product details to the form data
         formData.append('name', values.name);
         formData.append('price', JSON.stringify(values.price));
         formData.append('features', JSON.stringify(values.features));
@@ -87,37 +88,42 @@ const AddProduct = () => {
             price: color.price
         }));
 
-        formData.append('colors', JSON.stringify(colorsData)); // Append colors as a JSON string
+        formData.append('colors', JSON.stringify(colorsData));
 
-        // Append color images as a separate array
+        // Append each color image (if available) for color variants
         values.colors.forEach((color, index) => {
             if (color.image) {
-                formData.append(`colorsImg[${index}]`, color.image); // Append each image
+                formData.append(`colorsImg[${index}]`, color.image); // Add color image files
             }
         });
 
-        // Append product images
+        // Append main product images
+        values.images.forEach((image, index) => {
+            formData.append(`images`, image); // Add main product image files
+        });
 
-        formData.append('images', values.images);
-
-
-        // Debugging: log FormData contents
+        // Debugging: log the contents of FormData
         formData.forEach((value, key) => {
-            console.log(key, value);
+            console.log(`${key}:`, value);
         });
 
         try {
+            // Send the form data to your backend via the createProduct function
             const result = await createProduct(formData);
+
             if (result?.status === 200) {
                 toast.success('Product created successfully!');
+            } else {
+                setError('An error occurred while uploading the product. Please try again.');
             }
         } catch (err) {
             setError('An error occurred while uploading the product. Please try again.');
         } finally {
             setIsLoading(false);
-            setSubmitting(false);
+            setSubmitting(false); // End form submission
         }
     };
+
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -265,7 +271,7 @@ const AddProduct = () => {
 
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-700">Images</label>
-                            <input type="file" multiple onChange={(event) => {
+                            <input type="file" onChange={(event) => {
                                 const files = event.currentTarget.files;
                                 setFieldValue('images', Array.from(files));
                             }} className="mt-1 block text-sm text-gray-500" />
