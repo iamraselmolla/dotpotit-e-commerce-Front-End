@@ -35,9 +35,9 @@ const Product = ({ product }) => {
         <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300">
             <figure className="relative">
                 <img
-                    src={product?.images}
+                    src={`http://localhost:5000/${product?.images}`}
                     alt={product?.name}
-                    className="rounded-xl object-cover h-64 w-full"
+                    className="rounded-xl object-cover w-full"
                 />
                 <div className="absolute top-4 left-4 flex flex-col gap-2">
                     {product?.inStock ? (

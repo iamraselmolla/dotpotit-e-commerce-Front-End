@@ -105,9 +105,9 @@ const PurchaseHistory = () => {
                                 </div>
                             </div>
                             <div className="space-y-4">
-                                {transaction.products.map((product) => (
+                                {transaction?.products?.map((product) => (
                                     <div key={product?.productId} className="flex items-center space-x-4 border-b pb-4">
-                                        <img src={product.image} alt={product.productId.name} className="w-20 h-20 object-cover rounded-md" />
+                                        <img src={`http://localhost:5000/${product.image}`} alt={product.productId.name} className="w-20 h-20 object-cover rounded-md" />
                                         <div className="flex-grow">
                                             <Link to={`/products/${product?.productId}`} className="text-lg font-medium text-primary hover:underline">
                                                 {product.name} {/* Display the product name */}
