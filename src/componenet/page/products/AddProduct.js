@@ -4,13 +4,16 @@ import * as Yup from 'yup';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { getAllCategories, createProduct } from '../../services/user_services';
 import toast from 'react-hot-toast';
-import Loader from "../../shared/Loader"
+import imageCompression from "browser-image-compression";
+import Loader from "../../shared/Loader";
+import { useNavigate } from 'react-router-dom';
 
 const AddProduct = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [categories, setCategories] = useState([]);
     const [message, setMessage] = useState('');
+    const navigate = useNavigate();
 
     const initialValues = {
         name: '',
@@ -22,7 +25,7 @@ const AddProduct = () => {
         sku: '',
         category: '',
         brand: '',
-        images: '',
+        images: null, // Change to null for a single file
         inStock: true,
         shippingFrom: '',
     };
@@ -48,24 +51,23 @@ const AddProduct = () => {
         shippingFrom: Yup.string().required('Shipping location is required'),
     });
 
-    const resizeImage = (file, width, height) => {
-        return new Promise((resolve) => {
-            const img = new Image();
-            img.src = URL.createObjectURL(file);
-            img.onload = () => {
-                const canvas = document.createElement('canvas');
-                canvas.width = width;
-                canvas.height = height;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, width, height);
-                canvas.toBlob((blob) => {
-                    resolve(new File([blob], file.name, { type: 'image/png' }));
-                }, 'image/png');
-            };
-        });
+    const handleImageUpload = async (file) => {
+        const options = {
+            maxSizeMB: 1, // Set your max size limit
+            maxWidthOrHeight: 800, // Set your max width or height
+            useWebWorker: true, // Use web worker for performance
+        };
+
+        try {
+            const compressedFile = await imageCompression(file, options);
+            return compressedFile; // Return the compressed file
+        } catch (error) {
+            console.error('Error compressing image:', error);
+            return null; // Return null if there's an error
+        }
     };
 
-    const handleSubmit = async (values, { setSubmitting }) => {
+    const handleSubmit = async (values, { setSubmitting, resetForm }) => {
         setIsLoading(true);
         setError(null);
 
@@ -88,11 +90,15 @@ const AddProduct = () => {
         }));
         formData.append('colors', JSON.stringify(colorsData));
 
-        if (values.images.length > 0) {
-            formData.append('images', values.images[0]);
+        // Compress and append the single image
+        if (values.images) {
+            const compressedImage = await handleImageUpload(values.images);
+            if (compressedImage) {
+                formData.append('images', compressedImage); // Append compressed image
+            }
         }
 
-        values.colors.forEach((color, index) => {
+        values.colors.forEach((color) => {
             if (color.image) {
                 formData.append('colorsImg', color.image);
             }
@@ -103,6 +109,9 @@ const AddProduct = () => {
 
             if (result?.status === 200) {
                 toast.success('Product created successfully!');
+                resetForm();
+                setMessage('Product created successfully!');
+                navigate('/products');
             } else {
                 setError('An error occurred while uploading the product. Please try again.');
             }
@@ -113,7 +122,6 @@ const AddProduct = () => {
             setSubmitting(false);
         }
     };
-
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -192,10 +200,12 @@ const AddProduct = () => {
                                             <input type="file" onChange={async (event) => {
                                                 const file = event.currentTarget.files[0];
                                                 if (file) {
-                                                    setMessage('Resizing image...');
-                                                    const resizedImage = await resizeImage(file, 800, 800);
-                                                    setMessage('Image resized successfully.');
-                                                    setFieldValue(`colors.${index}.image`, resizedImage);
+                                                    setMessage('Compressing image...');
+                                                    const compressedImage = await handleImageUpload(file);
+                                                    if (compressedImage) {
+                                                        setMessage('Image compressed successfully.');
+                                                        setFieldValue(`colors.${index}.image`, compressedImage); // Handle color image
+                                                    }
                                                 }
                                             }} className="mt-1 block text-sm text-gray-500" />
                                             <button type="button" onClick={() => remove(index)} className="text-red-500"><FaMinus /></button>
@@ -205,6 +215,21 @@ const AddProduct = () => {
                                 </div>
                             )}
                         </FieldArray>
+
+                        {/* Handle the general image upload */}
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700">Image</label>
+                            <input type="file" onChange={async (event) => {
+                                const file = event.currentTarget.files[0];
+                                if (file) {
+                                    const compressedImage = await handleImageUpload(file);
+                                    if (compressedImage) {
+                                        setFieldValue('images', compressedImage); // Set the compressed image
+                                    }
+                                }
+                            }} className="mt-1 block text-sm text-gray-500" />
+                            <ErrorMessage name="images" component="div" className="text-red-500 text-sm mt-1" />
+                        </div>
 
                         <FieldArray name="memorySizes">
                             {({ remove, push }) => (
@@ -237,46 +262,41 @@ const AddProduct = () => {
                             )}
                         </FieldArray>
 
-                        <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-700">SKU</label>
-                            <Field name="sku" type="text" className="mt-1 block w-full rounded-md border-gray-300 border pl-4 py-2" />
-                            <ErrorMessage name="sku" component="div" className="text-red-500 text-sm mt-1" />
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                            <div>
+                                <label htmlFor="sku" className="block text-sm font-medium text-gray-700">SKU</label>
+                                <Field name="sku" type="text" className="mt-1 block w-full border pl-4 py-2 rounded-md border-gray-300" />
+                                <ErrorMessage name="sku" component="div" className="text-red-500 text-sm mt-1" />
+                            </div>
+
+                            <div>
+                                <label htmlFor="category" className="block text-sm font-medium text-gray-700">Category</label>
+                                <Field as="select" name="category" className="mt-1 block w-full border pl-4 py-2 rounded-md border-gray-300">
+                                    <option value="">Select a category</option>
+                                    {categories.map((category) => (
+                                        <option key={category._id} value={category._id}>{category.name}</option>
+                                    ))}
+                                </Field>
+                                <ErrorMessage name="category" component="div" className="text-red-500 text-sm mt-1" />
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                            <div>
+                                <label htmlFor="brand" className="block text-sm font-medium text-gray-700">Brand</label>
+                                <Field name="brand" type="text" className="mt-1 block w-full border pl-4 py-2 rounded-md border-gray-300" />
+                                <ErrorMessage name="brand" component="div" className="text-red-500 text-sm mt-1" />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">In Stock</label>
+                                <Field name="inStock" type="checkbox" className="mt-1 h-5 w-5" />
+                            </div>
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-700">Category</label>
-                            <Field as="select" name="category" className="mt-1 block w-full rounded-md border-gray-300 border pl-4 py-2">
-                                <option value="">Select Category</option>
-                                {categories?.map((category) => (
-                                    <option key={category._id} value={category._id}>{category.name}</option>
-                                ))}
-                            </Field>
-                            <ErrorMessage name="category" component="div" className="text-red-500 text-sm mt-1" />
-                        </div>
-
-                        <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-700">Brand</label>
-                            <Field name="brand" type="text" className="mt-1 block w-full rounded-md border-gray-300 border pl-4 py-2" />
-                            <ErrorMessage name="brand" component="div" className="text-red-500 text-sm mt-1" />
-                        </div>
-
-                        <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-700">Images</label>
-                            <input type="file" onChange={(event) => {
-                                const files = event.currentTarget.files;
-                                setFieldValue('images', Array.from(files));
-                            }} className="mt-1 block text-sm text-gray-500" />
-                            <ErrorMessage name="images" component="div" className="text-red-500 text-sm mt-1" />
-                        </div>
-
-                        <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-700">In Stock</label>
-                            <Field name="inStock" type="checkbox" className="mt-1 rounded-md border-gray-300" />
-                        </div>
-
-                        <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-700">Shipping From</label>
-                            <Field name="shippingFrom" type="text" className="mt-1 block w-full rounded-md border-gray-300 border pl-4 py-2" />
+                            <label htmlFor="shippingFrom" className="block text-sm font-medium text-gray-700">Shipping From</label>
+                            <Field name="shippingFrom" type="text" className="mt-1 block w-full border pl-4 py-2 rounded-md border-gray-300" />
                             <ErrorMessage name="shippingFrom" component="div" className="text-red-500 text-sm mt-1" />
                         </div>
 
